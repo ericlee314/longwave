@@ -52,7 +52,8 @@
     "join_team": "Entrar para o time",
     "join_left": "Entrar",
     "join_right": "Entrar",
-    "start_game": "Começar partida"
+    "start_game": "Começar partida",
+    "creator_is_observer": "Você criou esta sala e acompanhará como Mestre do jogo. Você não entrará em um time nem enviará dicas/palpites."
   },
   "makeguess": {
     "players_clue": "Dica de {{givername}}",

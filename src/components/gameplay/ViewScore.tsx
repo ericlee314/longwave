@@ -92,6 +92,7 @@ function NextTurnOrEndGame() {
           ...InitialGameState(i18n.language),
           deckSeed: gameState.deckSeed,
           deckIndex: gameState.deckIndex,
+          creatorId: gameState.creatorId,
         });
       }}
     />
@@ -177,10 +178,10 @@ function NextTurnOrEndGame() {
     }
 
     if (gameState.gameType !== GameType.Teams) {
-      return true;
+      return localPlayer.id !== gameState.creatorId;
     }
 
-    return localPlayer.team === nextTeam;
+    return localPlayer.id !== gameState.creatorId && localPlayer.team === nextTeam;
   })();
 
   return (

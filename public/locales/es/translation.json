@@ -56,7 +56,8 @@
     "join_team": "Únete a un equipo",
     "join_left": "Unirse",
     "join_right": "Unirse",
-    "start_game": "Empezar partida"
+    "start_game": "Empezar partida",
+    "creator_is_observer": "Creaste esta sala y seguirás como Maestro del juego. No te unirás a un equipo ni enviarás pistas o respuestas."
   },
   "makeguess": {
     "players_clue": "Pista de {{givername}}",

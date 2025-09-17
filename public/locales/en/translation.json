@@ -56,7 +56,8 @@
     "join_team": "Join Team",
     "join_left": "Join",
     "join_right": "Join",
-    "start_game": "Start game"
+    "start_game": "Start game",
+    "creator_is_observer": "You created this room and are following along as Game Master. You won't join a team or submit clues/guesses."
   },
   "makeguess": {
     "players_clue": "{{givername}}'s clue",

@@ -33,6 +33,8 @@ export function JoinTeam() {
     });
   };
 
+  const isCreator = localPlayer.id === gameState.creatorId;
+
   const startGame = () =>
     setGameState(
       NewTeamGame(
@@ -47,6 +49,11 @@ export function JoinTeam() {
     <CenteredColumn>
       <LongwaveAppTitle />
       <div>{t("jointeam.join_team")}:</div>
+      {isCreator && (
+        <div style={{ maxWidth: 600, color: "#666", marginBottom: 8 }}>
+          {t("jointeam.creator_is_observer")}
+        </div>
+      )}
       <CenteredRow
         style={{
           alignItems: "flex-start",
@@ -58,24 +65,28 @@ export function JoinTeam() {
           {leftTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}
-          <div>
-            <Button
-              text={t("jointeam.join_left")}
-              onClick={() => joinTeam(Team.Left)}
-            />
-          </div>
+          {!isCreator && (
+            <div>
+              <Button
+                text={t("jointeam.join_left")}
+                onClick={() => joinTeam(Team.Left)}
+              />
+            </div>
+          )}
         </CenteredColumn>
         <CenteredColumn>
           <div>{TeamName(Team.Right, t)}</div>
           {rightTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}
-          <div>
-            <Button
-              text={t("jointeam.join_right")}
-              onClick={() => joinTeam(Team.Right)}
-            />
-          </div>
+          {!isCreator && (
+            <div>
+              <Button
+                text={t("jointeam.join_right")}
+                onClick={() => joinTeam(Team.Right)}
+              />
+            </div>
+          )}
         </CenteredColumn>
       </CenteredRow>
       {gameState.roundPhase === RoundPhase.PickTeams && (

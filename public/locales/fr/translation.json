@@ -52,7 +52,8 @@
     "join_team": "Rejoindre une Équipe",
     "join_left": "Rejoindre",
     "join_right": "Rejoindre",
-    "start_game": "Démarrer la partie"
+    "start_game": "Démarrer la partie",
+    "creator_is_observer": "Vous avez créé ce salon et suivez la partie comme Maître du jeu. Vous ne rejoindrez pas d'équipe et ne soumettrez pas d'indices/déductions."
   },
   "makeguess": {
     "players_clue": "Indice fourni par {{givername}}",

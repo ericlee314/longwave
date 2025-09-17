@@ -56,7 +56,8 @@
         "join_team": "Team beitreten",
         "join_left": "Beitreten",
         "join_right": "Beitreten",
-        "start_game": "Starte Spiel"
+        "start_game": "Starte Spiel",
+        "creator_is_observer": "Du hast diesen Raum erstellt und verfolgst als Spielleiter. Du trittst keinem Team bei und gibst keine Hinweise/Tipps ab."
     },
     "makeguess": {
         "players_clue": "{{givername}}'s Hinweis",

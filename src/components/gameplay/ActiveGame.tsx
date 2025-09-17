@@ -20,8 +20,15 @@ export function ActiveGame() {
 
   if (
     gameState.gameType === GameType.Teams &&
-    (gameState.roundPhase === RoundPhase.PickTeams ||
-      localPlayer.team === Team.Unset)
+    gameState.roundPhase === RoundPhase.PickTeams
+  ) {
+    return <JoinTeam />;
+  }
+
+  if (
+    gameState.gameType === GameType.Teams &&
+    localPlayer.team === Team.Unset &&
+    localPlayer.id !== gameState.creatorId
   ) {
     return <JoinTeam />;
   }

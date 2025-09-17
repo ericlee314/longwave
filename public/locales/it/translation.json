@@ -56,7 +56,8 @@
     "join_team": "Unisciti alla squadra",
     "join_left": "Unisciti",
     "join_right": "Unisciti",
-    "start_game": "Avvia gioco"
+    "start_game": "Avvia gioco",
+    "creator_is_observer": "Hai creato questa stanza e seguirai come Game Master. Non ti unirai a una squadra né invierai indizi/ipotesi."
   },
   "makeguess": {
     "players_clue": "L'indizio di {{givername}}",
