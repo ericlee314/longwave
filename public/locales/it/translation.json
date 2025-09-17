@@ -57,7 +57,8 @@
     "join_left": "Unisciti",
     "join_right": "Unisciti",
     "start_game": "Avvia gioco",
-    "creator_is_observer": "Hai creato questa stanza e seguirai come Game Master. Non ti unirai a una squadra né invierai indizi/ipotesi."
+    "creator_is_observer": "Hai creato questa stanza e seguirai come Game Master. Non ti unirai a una squadra né invierai indizi/ipotesi.",
+    "only_creator_can_start": "Solo il game master può iniziare la partita."
   },
   "makeguess": {
     "players_clue": "L'indizio di {{givername}}",
@@ -80,7 +81,8 @@
   "setupgame": {
     "standard_game": "Classica (S): 4+ Giocatori",
     "coop_game": "Cooperativa: 2+ Giocatori",
-    "free_game": "Partita Libera: 2+ Giocatori"
+    "free_game": "Partita Libera: 2+ Giocatori",
+    "only_creator_can_start": "Solo il game master può iniziare la partita."
   },
   "viewscore": {
     "player_clue": "L'indizio di {{givername}}",

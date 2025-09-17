@@ -57,7 +57,8 @@
         "join_left": "Beitreten",
         "join_right": "Beitreten",
         "start_game": "Starte Spiel",
-        "creator_is_observer": "Du hast diesen Raum erstellt und verfolgst als Spielleiter. Du trittst keinem Team bei und gibst keine Hinweise/Tipps ab."
+        "creator_is_observer": "Du hast diesen Raum erstellt und verfolgst als Spielleiter. Du trittst keinem Team bei und gibst keine Hinweise/Tipps ab.",
+        "only_creator_can_start": "Nur der Spielleiter kann das Spiel starten."
     },
     "makeguess": {
         "players_clue": "{{givername}}'s Hinweis",
@@ -80,7 +81,8 @@
     "setupgame": {
         "standard_game": "Standard (Teams): 4+ Spieler",
         "coop_game": "Koop Modus: 2+ Spieler",
-        "free_game": "Freies Spiel: 2+ Spieler"
+        "free_game": "Freies Spiel: 2+ Spieler",
+        "only_creator_can_start": "Nur der Spielleiter kann das Spiel starten."
     },
     "viewscore": {
         "player_clue": "{{givername}}'s Hinweis",

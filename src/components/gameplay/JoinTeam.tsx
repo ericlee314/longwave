@@ -36,6 +36,7 @@ export function JoinTeam() {
   const isCreator = localPlayer.id === gameState.creatorId;
 
   const startGame = () =>
+    localPlayer.id === gameState.creatorId &&
     setGameState(
       NewTeamGame(
         gameState.players,
@@ -90,7 +91,18 @@ export function JoinTeam() {
         </CenteredColumn>
       </CenteredRow>
       {gameState.roundPhase === RoundPhase.PickTeams && (
-        <Button text={t("jointeam.start_game")} onClick={startGame} />
+        <>
+          <Button
+            text={t("jointeam.start_game")}
+            onClick={startGame}
+            disabled={localPlayer.id !== gameState.creatorId}
+          />
+          {localPlayer.id !== gameState.creatorId && (
+            <div style={{ color: "#666", marginTop: 8 }}>
+              {t("jointeam.only_creator_can_start")}
+            </div>
+          )}
+        </>
       )}
     </CenteredColumn>
   );

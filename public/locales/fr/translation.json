@@ -53,7 +53,8 @@
     "join_left": "Rejoindre",
     "join_right": "Rejoindre",
     "start_game": "Démarrer la partie",
-    "creator_is_observer": "Vous avez créé ce salon et suivez la partie comme Maître du jeu. Vous ne rejoindrez pas d'équipe et ne soumettrez pas d'indices/déductions."
+    "creator_is_observer": "Vous avez créé ce salon et suivez la partie comme Maître du jeu. Vous ne rejoindrez pas d'équipe et ne soumettrez pas d'indices/déductions.",
+    "only_creator_can_start": "Seul le maître du jeu peut démarrer la partie."
   },
   "makeguess": {
     "players_clue": "Indice fourni par {{givername}}",
@@ -76,7 +77,8 @@
   "setupgame": {
     "standard_game": "Standard (Équipe) : 4+ Joueurs",
     "coop_game": "Coopératif : 2+ Joueurs",
-    "free_game": "Partie Libre : 2+ Joueurs"
+    "free_game": "Partie Libre : 2+ Joueurs",
+    "only_creator_can_start": "Seul le maître du jeu peut démarrer la partie."
   },
   "viewscore": {
     "player_clue": "Indice fourni par {{givername}}",

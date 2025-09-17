@@ -15,6 +15,9 @@ export function SetupGame() {
   const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
 
   const startGame = (gameType: GameType) => {
+    if (localPlayer.id !== gameState.creatorId) {
+      return;
+    }
     if (gameType === GameType.Teams) {
       setGameState({
         roundPhase: RoundPhase.PickTeams,
@@ -35,16 +38,24 @@ export function SetupGame() {
         <Button
           text={t("setupgame.standard_game")}
           onClick={() => startGame(GameType.Teams)}
+          disabled={localPlayer.id !== gameState.creatorId}
         />
         <Button
           text={t("setupgame.coop_game")}
           onClick={() => startGame(GameType.Cooperative)}
+          disabled={localPlayer.id !== gameState.creatorId}
         />
         <Button
           text={t("setupgame.free_game")}
           onClick={() => startGame(GameType.Freeplay)}
+          disabled={localPlayer.id !== gameState.creatorId}
         />
       </CenteredRow>
+      {localPlayer.id !== gameState.creatorId && (
+        <div style={{ color: "#666", marginTop: 8 }}>
+          {t("setupgame.only_creator_can_start")}
+        </div>
+      )}
     </CenteredColumn>
   );
 }
