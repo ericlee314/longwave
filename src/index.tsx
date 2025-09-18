@@ -6,12 +6,15 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 
 import * as serviceWorker from "./serviceWorker";
+import firebase from "firebase/app";
 
 import App from "./components/App";
+import { firebaseConfig } from "./firebaseConfig";
 
 // import i18n (needs to be bundled ;))
 import "./i18n";
 
+firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
