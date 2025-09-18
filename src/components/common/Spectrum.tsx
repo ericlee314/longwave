@@ -48,10 +48,13 @@ export function Spectrum(props: {
     const svg = svgRef.current;
     if (!svg) return undefined;
     const rect = svg.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    const dx = x - centerX;
-    const dy = y - centerY;
+    // Convert client (CSS pixel) coordinates to SVG viewBox coordinates
+    const scaleX = size / rect.width;
+    const scaleY = size / rect.height;
+    const svgX = (clientX - rect.left) * scaleX;
+    const svgY = (clientY - rect.top) * scaleY;
+    const dx = svgX - centerX;
+    const dy = svgY - centerY;
     // Angle relative to positive X axis, with Y inverted so 0=right, 180=left, only top half yields 0..180
     const theta = Math.atan2(-dy, dx);
     const deg = (theta * 180) / Math.PI; // deg in (-180..180]
