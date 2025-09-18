@@ -33,7 +33,10 @@ export function JoinTeam() {
     });
   };
 
+  const isCreator = localPlayer.id === gameState.creatorId;
+
   const startGame = () =>
+    localPlayer.id === gameState.creatorId &&
     setGameState(
       NewTeamGame(
         gameState.players,
@@ -47,6 +50,11 @@ export function JoinTeam() {
     <CenteredColumn>
       <LongwaveAppTitle />
       <div>{t("jointeam.join_team") as string}:</div>
+      {isCreator && (
+        <div style={{ maxWidth: 600, color: "#666", marginBottom: 8 }}>
+          {t("jointeam.creator_is_observer")}
+        </div>
+      )}
       <CenteredRow
         style={{
           alignItems: "flex-start",
@@ -58,12 +66,14 @@ export function JoinTeam() {
           {leftTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}
-          <div>
-            <Button
-              text={t("jointeam.join_left") as string}
-              onClick={() => joinTeam(Team.Left)}
-            />
-          </div>
+          {!isCreator && (
+            <div>
+              <Button
+                text={t("jointeam.join_left") as string}
+                onClick={() => joinTeam(Team.Left)}
+              />
+            </div>
+          )}
         </CenteredColumn>
         <CenteredColumn>
           <div>{TeamName(Team.Right, t)}</div>
@@ -80,6 +90,29 @@ export function JoinTeam() {
       </CenteredRow>
       {gameState.roundPhase === RoundPhase.PickTeams && (
         <Button text={t("jointeam.start_game") as string} onClick={startGame} />
+          {!isCreator && (
+            <div>
+              <Button
+                text={t("jointeam.join_right") as string}
+                onClick={() => joinTeam(Team.Right)}
+              />
+            </div>
+          )}
+        </CenteredColumn>
+      </CenteredRow>
+      {gameState.roundPhase === RoundPhase.PickTeams && (
+        <>
+          <Button
+            text={t("jointeam.start_game") as string}
+            onClick={startGame}
+            disabled={localPlayer.id !== gameState.creatorId}
+          />
+          {localPlayer.id !== gameState.creatorId && (
+            <div style={{ color: "#666", marginTop: 8 }}>
+              {t("jointeam.only_creator_can_start") as string}
+            </div>
+          )}
+        </>
       )}
     </CenteredColumn>
   );

@@ -56,7 +56,9 @@
     "join_team": "Únete a un equipo",
     "join_left": "Unirse",
     "join_right": "Unirse",
-    "start_game": "Empezar partida"
+    "start_game": "Empezar partida",
+    "creator_is_observer": "Creaste esta sala y seguirás como Maestro del juego. No te unirás a un equipo ni enviarás pistas o respuestas.",
+    "only_creator_can_start": "Solo el maestro del juego puede iniciar la partida."
   },
   "makeguess": {
     "players_clue": "Pista de {{givername}}",
@@ -79,7 +81,8 @@
   "setupgame": {
     "standard_game": "Estándar (por equipos): 4+ jugadores",
     "coop_game": "Cooperativo: 2+ jugadores",
-    "free_game": "Partida libre: 2+ jugadores"
+    "free_game": "Partida libre: 2+ jugadores",
+    "only_creator_can_start": "Solo el maestro del juego puede iniciar la partida."
   },
   "viewscore": {
     "player_clue": "Pista de {{givername}}",

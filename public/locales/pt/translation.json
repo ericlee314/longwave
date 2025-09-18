@@ -52,7 +52,9 @@
     "join_team": "Entrar para o time",
     "join_left": "Entrar",
     "join_right": "Entrar",
-    "start_game": "Começar partida"
+    "start_game": "Começar partida",
+    "creator_is_observer": "Você criou esta sala e acompanhará como Mestre do jogo. Você não entrará em um time nem enviará dicas/palpites.",
+    "only_creator_can_start": "Apenas o mestre do jogo pode iniciar a partida."
   },
   "makeguess": {
     "players_clue": "Dica de {{givername}}",
@@ -75,7 +77,8 @@
   "setupgame": {
     "standard_game": "Padrão (Times): 4+ Jogadores",
     "coop_game": "Cooperativo: 2+ Jogadores",
-    "free_game": "Jogo livre: 2+ Jogadores"
+    "free_game": "Jogo livre: 2+ Jogadores",
+    "only_creator_can_start": "Apenas o mestre do jogo pode iniciar a partida."
   },
   "viewscore": {
     "player_clue": "Dica de {{givername}}",

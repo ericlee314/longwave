@@ -18,7 +18,9 @@ export function MakeGuess() {
     return null;
   }
 
+  const isGameMaster = localPlayer.id === gameState.creatorId;
   const notMyTurn =
+    isGameMaster ||
     localPlayer.id === clueGiver.id ||
     (gameState.gameType === GameType.Teams &&
       localPlayer.team !== clueGiver.team);

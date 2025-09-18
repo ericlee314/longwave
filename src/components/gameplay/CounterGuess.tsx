@@ -23,7 +23,8 @@ export function CounterGuess() {
     return null;
   }
 
-  const notMyTurn = clueGiver.team === localPlayer.team;
+  const isGameMaster = localPlayer.id === gameState.creatorId;
+  const notMyTurn = isGameMaster || clueGiver.team === localPlayer.team;
   const counterGuessTeamString = TeamName(TeamReverse(clueGiver.team), t);
 
   if (notMyTurn) {

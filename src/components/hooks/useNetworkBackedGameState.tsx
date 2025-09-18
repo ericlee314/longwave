@@ -25,7 +25,13 @@ export function useNetworkBackedGameState(
       };
 
       if (networkGameState?.roundPhase === undefined) {
-        dbRef.set(completeGameState);
+        dbRef.set({
+          ...completeGameState,
+          creatorId:
+            completeGameState.creatorId && completeGameState.creatorId.length
+              ? completeGameState.creatorId
+              : playerId,
+        });
         return;
       }
 

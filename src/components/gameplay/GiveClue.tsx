@@ -1,6 +1,6 @@
 import React, { useRef, useContext, useState } from "react";
 
-import { GameType, RoundPhase } from "../../state/GameState";
+import { GameType, RoundPhase, Team } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
 import { CenteredColumn, CenteredRow } from "../common/LayoutElements";
 import { Button } from "../common/Button";
@@ -25,8 +25,32 @@ export function GiveClue() {
   );
 
   if (!clueGiver) {
+    const playerIds = Object.keys(gameState.players);
+    const eligiblePlayers = playerIds.filter((pid) => {
+      if (pid === gameState.creatorId) {
+        return false;
+      }
+      if (gameState.gameType === GameType.Teams) {
+        return gameState.players[pid].team !== Team.Unset;
+      }
+      return true;
+    });
+
+    if (eligiblePlayers.length === 0) {
+      return (
+        <CenteredColumn>
+          <div>{t("makeguess.invite_other_players")}</div>
+          <div>
+            {t("makeguess.share_game_url", {
+              game_url: window.location.href,
+            })}
+          </div>
+        </CenteredColumn>
+      );
+    }
+
     setGameState({
-      clueGiver: localPlayer.id,
+      clueGiver: eligiblePlayers[0],
     });
     return null;
   }

@@ -76,6 +76,7 @@ export interface GameState {
   coopBonusTurns: number;
   previousTurn: TurnSummaryModel | null;
   deckLanguage: string | null;
+  creatorId: string;
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -97,5 +98,6 @@ export function InitialGameState(deckLanguage: string): GameState {
     coopBonusTurns: 0,
     previousTurn: null,
     deckLanguage: deckLanguage,
+    creatorId: "",
   };
 }
