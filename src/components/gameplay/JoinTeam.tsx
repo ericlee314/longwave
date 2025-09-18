@@ -80,16 +80,6 @@ export function JoinTeam() {
           {rightTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}
-          <div>
-            <Button
-              text={t("jointeam.join_right") as string}
-              onClick={() => joinTeam(Team.Right)}
-            />
-          </div>
-        </CenteredColumn>
-      </CenteredRow>
-      {gameState.roundPhase === RoundPhase.PickTeams && (
-        <Button text={t("jointeam.start_game") as string} onClick={startGame} />
           {!isCreator && (
             <div>
               <Button
