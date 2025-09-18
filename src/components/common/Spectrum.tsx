@@ -38,7 +38,7 @@ export function Spectrum(props: {
 
   const size = 260; // view size in px
   const centerX = size / 2;
-  const centerY = size * 0.9 - 6; // shift up slightly to reveal more bottom
+  const centerY = size * 0.9; // lower to give space above
   const radius = size * 0.42;
 
   // Map values [0..20] to angles along the TOP semicircle [180..0]
@@ -104,7 +104,7 @@ export function Spectrum(props: {
       center + 0.5,
       center + 1.5,
       center + 2.5,
-    ].map((v) => Math.max(0, Math.min(20, v)));
+    ].map((v) => Math.max(-0.5, Math.min(20.5, v)));
 
     const colors = {
       two: "#FDD835", // 2 points
