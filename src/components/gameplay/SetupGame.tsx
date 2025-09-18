@@ -53,7 +53,7 @@ export function SetupGame() {
       </CenteredRow>
       {localPlayer.id !== gameState.creatorId && (
         <div style={{ color: "#666", marginTop: 8 }}>
-          {t("setupgame.only_creator_can_start")}
+          {t("setupgame.only_creator_can_start") as string}
         </div>
       )}
     </CenteredColumn>

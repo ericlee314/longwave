@@ -46,7 +46,7 @@ export function ViewScore() {
       />
       <CenteredColumn>
         <div>
-          {t("viewscore.player_clue", { givername: clueGiver.name })}:{" "}
+          {t("viewscore.player_clue", { givername: clueGiver.name }) as string}:{" "}
           <strong>{gameState.clue}</strong>
         </div>
         <div>
@@ -102,7 +102,7 @@ function NextTurnOrEndGame() {
     return (
       <>
         <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t) })}
+          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t) }) as string}
         </div>
         {resetButton}
       </>
@@ -116,7 +116,7 @@ function NextTurnOrEndGame() {
     return (
       <>
         <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t) })}
+          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t) }) as string}
         </div>
         {resetButton}
       </>
@@ -189,7 +189,7 @@ function NextTurnOrEndGame() {
       {bonusTurn && (
         <CenteredRow>
           <div>
-            {t("viewscore.catching_up", { scoringteam: scoringTeamString })}
+            {t("viewscore.catching_up", { scoringteam: scoringTeamString }) as string}
           </div>
           <Info>{t("viewscore.catching_up_info") as string}</Info>
         </CenteredRow>
