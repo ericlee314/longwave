@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { TeamReverse, TeamName } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
 import { CenteredColumn, CenteredRow } from "../common/LayoutElements";
@@ -18,6 +18,7 @@ export function CounterGuess() {
     spectrumCard,
     setGameState,
   } = useContext(GameModelContext);
+  const [pendingDirection, setPendingDirection] = useState<"left" | "right" | null>(null);
 
   if (!clueGiver) {
     return null;
@@ -56,18 +57,42 @@ export function CounterGuess() {
         </div>
       </CenteredColumn>
       <CenteredRow>
-        <Button
-          text={t("counterguess.more_left") as string}
-          onClick={() =>
-            setGameState(ScoreTeamRound(gameState, clueGiver.team, "left"))
-          }
-        />
-        <Button
-          text={t("counterguess.more_right") as string}
-          onClick={() =>
-            setGameState(ScoreTeamRound(gameState, clueGiver.team, "right"))
-          }
-        />
+        {pendingDirection === null && (
+          <>
+            <Button
+              text={t("counterguess.more_left") as string}
+              onClick={() => setPendingDirection("left")}
+            />
+            <Button
+              text={t("counterguess.more_right") as string}
+              onClick={() => setPendingDirection("right")}
+            />
+          </>
+        )}
+        {pendingDirection !== null && (
+          <>
+            <Button
+              text={
+                pendingDirection === "left"
+                  ? (t("counterguess.confirm_more_left") as string)
+                  : (t("counterguess.confirm_more_right") as string)
+              }
+              onClick={() =>
+                setGameState(
+                  ScoreTeamRound(
+                    gameState,
+                    clueGiver.team,
+                    pendingDirection === "left" ? "left" : "right"
+                  )
+                )
+              }
+            />
+            <Button
+              text={t("counterguess.cancel") as string}
+              onClick={() => setPendingDirection(null)}
+            />
+          </>
+        )}
       </CenteredRow>
     </div>
   );

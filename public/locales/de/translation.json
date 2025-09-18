@@ -35,6 +35,9 @@
     "counterguess": {
         "more_left": "Ziel ist weiter links",
         "more_right": "Ziel ist weiter rechts",
+        "confirm_more_left": "Bestätigen: Ziel ist weiter links",
+        "confirm_more_right": "Bestätigen: Ziel ist weiter rechts",
+        "cancel": "Abbrechen",
         "players_clue": "{{givername}}'s Hinweis",
         "waiting_guess_team": "Warte auf den Rateversuche links/rechts von Team {{guessteam}}..."
     },
@@ -65,7 +68,9 @@
         "waiting_guessing_team": "Warte auf den Rateversuch von Team {{guessingteam}}...",
         "invite_other_players": "Lade weitere Spieler zu diesem Spiel ein.",
         "share_game_url": "Teile diese Adresse mit ihnen: {{game_url}}",
-        "guess_for_team": "Rate für das Team {{teamname}}"
+        "guess_for_team": "Rate für das Team {{teamname}}",
+        "confirm_guess_for_team": "Bestätigen: Rate für {{teamname}}",
+        "cancel": "Abbrechen"
     },
     "previousturnresult": {
         "previous_game": "Vorheriges Spiel",

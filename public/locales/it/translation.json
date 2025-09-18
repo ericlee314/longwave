@@ -35,6 +35,9 @@
   "counterguess": {
     "more_left": "Il target si trova sulla sinistra",
     "more_right": "Il target si trova sulla destra",
+    "confirm_more_left": "Conferma: il target è sulla sinistra",
+    "confirm_more_right": "Conferma: il target è sulla destra",
+    "cancel": "Annulla",
     "players_clue": "L'indizio di {{givername}}",
     "waiting_guess_team": "In attesa che il team {{guessteam}} indovini destra/sinistra..."
   },
@@ -65,7 +68,9 @@
     "waiting_guessing_team": "In attesa che la squadra {{guessingteam}} indovini...",
     "invite_other_players": "Invita altri giocatori ad unirsi alla partita.",
     "share_game_url": "Condividi questo URL con loro: {{game_url}}",
-    "guess_for_team": "Conferma ipotesi per la squadra {{teamname}}"
+    "guess_for_team": "Conferma ipotesi per la squadra {{teamname}}",
+    "confirm_guess_for_team": "Conferma definitiva per {{teamname}}",
+    "cancel": "Annulla"
   },
   "previousturnresult": {
     "previous_game": "Turno precedente",

@@ -31,6 +31,9 @@
   "counterguess": {
     "more_left": "La cible est sur la gauche",
     "more_right": "La cible est sur la droite",
+    "confirm_more_left": "Confirmer : la cible est sur la gauche",
+    "confirm_more_right": "Confirmer : la cible est sur la droite",
+    "cancel": "Annuler",
     "players_clue": "Indice fourni par {{givername}}",
     "waiting_guess_team": "En attente d'une déduction de positionnement à fournir par {{guessteam}}..."
   },
@@ -61,7 +64,9 @@
     "waiting_guessing_team": "En attente d'une déduction par {{guessingteam}}...",
     "invite_other_players": "Inviter d'autres joueurs à rejoindre la partie.",
     "share_game_url": "Partager cette URL avec eux : {{game_url}}",
-    "guess_for_team": "Envoyer votre déduction pour {{teamname}}"
+    "guess_for_team": "Envoyer votre déduction pour {{teamname}}",
+    "confirm_guess_for_team": "Confirmer la déduction pour {{teamname}}",
+    "cancel": "Annuler"
   },
   "previousturnresult": {
     "previous_game": "Tour précédent",
