@@ -26,7 +26,7 @@ export function CounterGuess() {
 
   const isGameMaster = localPlayer.id === gameState.creatorId;
   const notMyTurn = isGameMaster || clueGiver.team === localPlayer.team;
-  const counterGuessTeamString = TeamName(TeamReverse(clueGiver.team), t);
+  const counterGuessTeamString = TeamName(TeamReverse(clueGiver.team), t, gameState);
 
   if (notMyTurn) {
     return (

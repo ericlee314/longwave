@@ -51,6 +51,32 @@ export function JoinTeam() {
       <LongwaveAppTitle />
       <div>{t("jointeam.join_team") as string}:</div>
       {isCreator && (
+        <CenteredRow style={{ gap: 24, margin: "8px 0" }}>
+          <div>
+            <div>{t("jointeam.left_team_name") as string}</div>
+            <input
+              type="text"
+              style={{ marginTop: 4 }}
+              value={gameState.leftTeamName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setGameState({ leftTeamName: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <div>{t("jointeam.right_team_name") as string}</div>
+            <input
+              type="text"
+              style={{ marginTop: 4 }}
+              value={gameState.rightTeamName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setGameState({ rightTeamName: e.target.value })
+              }
+            />
+          </div>
+        </CenteredRow>
+      )}
+      {isCreator && (
         <div style={{ maxWidth: 600, color: "#666", marginBottom: 8 }}>
           {t("jointeam.creator_is_observer")}
         </div>
@@ -62,7 +88,7 @@ export function JoinTeam() {
         }}
       >
         <CenteredColumn>
-          <div>{TeamName(Team.Left, t)}</div>
+          <div>{TeamName(Team.Left, t, gameState)}</div>
           {leftTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}
@@ -76,7 +102,7 @@ export function JoinTeam() {
           )}
         </CenteredColumn>
         <CenteredColumn>
-          <div>{TeamName(Team.Right, t)}</div>
+          <div>{TeamName(Team.Right, t, gameState)}</div>
           {rightTeam.map((playerId) => (
             <div key={playerId}>{gameState.players[playerId].name}</div>
           ))}

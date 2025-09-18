@@ -26,7 +26,7 @@ export function MakeGuess() {
     (gameState.gameType === GameType.Teams &&
       localPlayer.team !== clueGiver.team);
 
-  const guessingTeamString = TeamName(clueGiver.team, t);
+  const guessingTeamString = TeamName(clueGiver.team, t, gameState);
 
   if (notMyTurn) {
     return (
@@ -84,7 +84,7 @@ export function MakeGuess() {
           {!confirming ? (
             <Button
               text={t("makeguess.guess_for_team", {
-                teamname: TeamName(localPlayer.team, t),
+                teamname: TeamName(localPlayer.team, t, gameState),
               })}
               onClick={() => setConfirming(true)}
             />
@@ -92,7 +92,7 @@ export function MakeGuess() {
             <>
               <Button
                 text={t("makeguess.confirm_guess_for_team", {
-                  teamname: TeamName(localPlayer.team, t),
+                  teamname: TeamName(localPlayer.team, t, gameState),
                 })}
                 onClick={() => {
                   RecordEvent("guess_submitted", {

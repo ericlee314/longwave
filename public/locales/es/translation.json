@@ -59,6 +59,8 @@
     "join_team": "Únete a un equipo",
     "join_left": "Unirse",
     "join_right": "Unirse",
+    "left_team_name": "Nombre del equipo izquierdo",
+    "right_team_name": "Nombre del equipo derecho",
     "start_game": "Empezar partida",
     "creator_is_observer": "Creaste esta sala y seguirás como Maestro del juego. No te unirás a un equipo ni enviarás pistas o respuestas.",
     "only_creator_can_start": "Solo el maestro del juego puede iniciar la partida."

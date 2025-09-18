@@ -55,6 +55,8 @@
     "join_team": "Entrar para o time",
     "join_left": "Entrar",
     "join_right": "Entrar",
+    "left_team_name": "Nome do time da esquerda",
+    "right_team_name": "Nome do time da direita",
     "start_game": "Começar partida",
     "creator_is_observer": "Você criou esta sala e acompanhará como Mestre do jogo. Você não entrará em um time nem enviará dicas/palpites.",
     "only_creator_can_start": "Apenas o mestre do jogo pode iniciar a partida."

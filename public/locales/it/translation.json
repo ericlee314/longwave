@@ -59,6 +59,8 @@
     "join_team": "Unisciti alla squadra",
     "join_left": "Unisciti",
     "join_right": "Unisciti",
+    "left_team_name": "Nome squadra sinistra",
+    "right_team_name": "Nome squadra destra",
     "start_game": "Avvia gioco",
     "creator_is_observer": "Hai creato questa stanza e seguirai come Game Master. Non ti unirai a una squadra né invierai indizi/ipotesi.",
     "only_creator_can_start": "Solo il game master può iniziare la partita."

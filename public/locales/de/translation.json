@@ -59,6 +59,8 @@
         "join_team": "Team beitreten",
         "join_left": "Beitreten",
         "join_right": "Beitreten",
+        "left_team_name": "Name linkes Team",
+        "right_team_name": "Name rechtes Team",
         "start_game": "Starte Spiel",
         "creator_is_observer": "Du hast diesen Raum erstellt und verfolgst als Spielleiter. Du trittst keinem Team bei und gibst keine Hinweise/Tipps ab.",
         "only_creator_can_start": "Nur der Spielleiter kann das Spiel starten."

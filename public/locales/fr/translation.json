@@ -55,6 +55,8 @@
     "join_team": "Rejoindre une Équipe",
     "join_left": "Rejoindre",
     "join_right": "Rejoindre",
+    "left_team_name": "Nom de l'équipe gauche",
+    "right_team_name": "Nom de l'équipe droite",
     "start_game": "Démarrer la partie",
     "creator_is_observer": "Vous avez créé ce salon et suivez la partie comme Maître du jeu. Vous ne rejoindrez pas d'équipe et ne soumettrez pas d'indices/déductions.",
     "only_creator_can_start": "Seul le maître du jeu peut démarrer la partie."
