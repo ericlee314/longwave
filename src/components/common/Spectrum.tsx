@@ -41,10 +41,24 @@ export function Spectrum(props: {
   const centerY = size * 0.9; // lower to give space above
   const radius = size * 0.42;
 
-  const angleForValue = (value: number) => -90 + (value / 20) * 180;
-  const valueForAngle = (angle: number) => {
-    const clamped = Math.max(-90, Math.min(90, angle));
-    const ratio = (clamped + 90) / 180;
+  // Map values [0..20] to angles along the TOP semicircle [180..0]
+  const angleForValue = (value: number) => 180 - (value / 20) * 180;
+  // Convert a screen point to value along the top semicircle. Ignore events outside top half.
+  const valueForPoint = (clientX: number, clientY: number) => {
+    const svg = svgRef.current;
+    if (!svg) return undefined;
+    const rect = svg.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const dx = x - centerX;
+    const dy = y - centerY;
+    // Angle relative to positive X axis, with Y inverted so 0=right, 180=left, only top half yields 0..180
+    const theta = Math.atan2(-dy, dx);
+    const deg = (theta * 180) / Math.PI; // deg in (-180..180]
+    if (deg < 0 || deg > 180) {
+      return undefined; // outside top semicircle
+    }
+    const ratio = (180 - deg) / 180; // 0 at left, 1 at right
     return Math.max(0, Math.min(20, Math.round(ratio * 20)));
   };
 
@@ -65,24 +79,10 @@ export function Spectrum(props: {
   };
 
   const handlePointer = (clientX: number, clientY: number) => {
-    if (!props.onChange) {
-      return;
-    }
-    const svg = svgRef.current;
-    if (!svg) {
-      return;
-    }
-    const rect = svg.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    const dx = x - centerX;
-    const dy = y - centerY;
-    const angle = (Math.atan2(dy, dx) * 180) / Math.PI; // -180..180, 0 = right
-    // Clamp to upper semicircle only (-90..90)
-    if (angle < -90 || angle > 90) {
-      return;
-    }
-    props.onChange(valueForAngle(angle));
+    if (!props.onChange) return;
+    const v = valueForPoint(clientX, clientY);
+    if (v === undefined) return;
+    props.onChange(v);
   };
 
   const dialAngle = currentDialValue !== undefined ? angleForValue(currentDialValue) : undefined;
@@ -180,9 +180,9 @@ export function Spectrum(props: {
               </linearGradient>
             </defs>
 
-            {/* Base semi-circle */}
+            {/* Base semi-circle (top arc) */}
             <path
-              d={arcPath(-90, 90, radius)}
+              d={arcPath(180, 0, radius)}
               fill="none"
               stroke={`url(#${backgroundGradientId})`}
               strokeWidth={14}
