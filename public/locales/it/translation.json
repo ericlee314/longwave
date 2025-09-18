@@ -104,6 +104,7 @@
     "catching_up": "Recupero attivato: {{scoringteam}} ottiene un turno bonus!",
     "catching_up_info": "Dopo che una squadra ha vinto un round da quattro punti, ottiene un turno bonus se è ancora dietro all'altra squadra",
     "draw_next_card": "Estrai la carta Spectrum successiva",
+    "next_round": "Prossimo turno",
     "score": "Punteggio",
     "got": "riceve"
   }

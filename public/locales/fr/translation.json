@@ -100,6 +100,7 @@
     "catching_up": "Rattrapage activaté : {{scoringteam}} obtient un tour bonus !",
     "catching_up_info": "Après qu'une équipe a marqué quatre points d'un coup, elle obtient un tour bonus si elle est toujours derrière l'autre équipe",
     "draw_next_card": "Dessiner la carte de plage de valeur suivante",
+    "next_round": "Manche suivante",
     "score": "Score",
     "got": "obtient"
   }

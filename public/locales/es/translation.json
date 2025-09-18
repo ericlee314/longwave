@@ -104,6 +104,7 @@
     "catching_up": "Sprint activado: ¡el {{scoringteam}} tiene un turno extra!",
     "catching_up_info": "Cuando un equipo gana 4 puntos en una ronda, consigue un turno extra si sigue estando por detrás del otro equipo",
     "draw_next_card": "Roba la siguiente carta de espectro",
+    "next_round": "Siguiente ronda",
     "score": "Puntuación",
     "got": "obtiene"
   }

@@ -183,7 +183,7 @@ function NextTurnOrEndGame() {
       return localPlayer.id !== gameState.creatorId;
     }
 
-    return localPlayer.id !== gameState.creatorId && localPlayer.team === nextTeam;
+    return false; // In Teams mode, only the game master advances the round
   })();
 
   return (
@@ -196,16 +196,27 @@ function NextTurnOrEndGame() {
           <Info>{t("viewscore.catching_up_info") as string}</Info>
         </CenteredRow>
       )}
-      {eligibleToDraw && (
-        <Button
-          text={t("viewscore.draw_next_card") as string}
-          onClick={() =>
-            setGameState(
-              NewRound(localPlayer.id, gameState, cardsTranslation.t)
-            )
-          }
-        />
-      )}
+      {gameState.gameType === GameType.Teams
+        ? localPlayer.id === gameState.creatorId && (
+            <Button
+              text={t("viewscore.next_round") as string}
+              onClick={() =>
+                setGameState(
+                  NewRound(localPlayer.id, gameState, cardsTranslation.t)
+                )
+              }
+            />
+          )
+        : eligibleToDraw && (
+            <Button
+              text={t("viewscore.draw_next_card") as string}
+              onClick={() =>
+                setGameState(
+                  NewRound(localPlayer.id, gameState, cardsTranslation.t)
+                )
+              }
+            />
+          )}
     </>
   );
 }
