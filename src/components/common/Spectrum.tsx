@@ -38,7 +38,7 @@ export function Spectrum(props: {
 
   const size = 260; // view size in px
   const centerX = size / 2;
-  const centerY = size * 0.9; // lower to give space above
+  const centerY = size * 0.9 - 6; // shift up slightly to reveal more bottom
   const radius = size * 0.42;
 
   // Map values [0..20] to angles along the TOP semicircle [180..0]
