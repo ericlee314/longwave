@@ -83,6 +83,9 @@ export interface GameState {
   creatorId: string;
   leftTeamName: string;
   rightTeamName: string;
+  // Rotation indices for selecting the next clue giver within each team
+  leftRotationIndex: number;
+  rightRotationIndex: number;
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -107,5 +110,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     creatorId: "",
     leftTeamName: "",
     rightTeamName: "",
+    leftRotationIndex: 0,
+    rightRotationIndex: 0,
   };
 }

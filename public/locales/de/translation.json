@@ -104,6 +104,7 @@
         "catching_up": "Aufholjagd aktiviert: {{scoringteam}} erhielt einen Bonuszug!",
         "catching_up_info": "Nachdem Dein team einen 4-Punkte Zug erreicht hat, erhält das Team einen weiteren Zug, sollte es weiterhin hinter dem anderem Team liegen.",
         "draw_next_card": "Ziehe nächste Spektrum Karte",
+        "next_round": "Nächste Runde",
         "score": "Punktestand",
         "got": "erhielt"
     }
