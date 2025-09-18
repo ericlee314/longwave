@@ -10,6 +10,7 @@ import { CounterGuess } from "./CounterGuess";
 import { useContext } from "react";
 import { GameModelContext } from "../../state/GameModelContext";
 import { PreviousTurnResult } from "./PreviousTurnResult";
+import { PhaseTimer } from "../common/PhaseTimer";
 
 export function ActiveGame() {
   const { gameState, localPlayer } = useContext(GameModelContext);
@@ -35,6 +36,11 @@ export function ActiveGame() {
 
   return (
     <>
+      {(gameState.roundPhase === RoundPhase.GiveClue ||
+        gameState.roundPhase === RoundPhase.MakeGuess ||
+        gameState.roundPhase === RoundPhase.CounterGuess) && (
+        <PhaseTimer resetKey={gameState.roundPhase} />
+      )}
       {gameState.roundPhase === RoundPhase.GiveClue && <GiveClue />}
       {gameState.roundPhase === RoundPhase.MakeGuess && <MakeGuess />}
       {gameState.roundPhase === RoundPhase.CounterGuess && <CounterGuess />}
