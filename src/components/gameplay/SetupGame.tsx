@@ -40,16 +40,6 @@ export function SetupGame() {
           onClick={() => startGame(GameType.Teams)}
           disabled={localPlayer.id !== gameState.creatorId}
         />
-        <Button
-          text={t("setupgame.coop_game") as string}
-          onClick={() => startGame(GameType.Cooperative)}
-          disabled={localPlayer.id !== gameState.creatorId}
-        />
-        <Button
-          text={t("setupgame.free_game") as string}
-          onClick={() => startGame(GameType.Freeplay)}
-          disabled={localPlayer.id !== gameState.creatorId}
-        />
       </CenteredRow>
       {localPlayer.id !== gameState.creatorId && (
         <div style={{ color: "#666", marginTop: 8 }}>
