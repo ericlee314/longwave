@@ -44,6 +44,7 @@
   "giveclue": {
     "waiting_for_clue": "In attesa che {{givername}} fornisca un indizio...",
     "draw_other_hand": "Estrai una carta diversa",
+    "skip_player": "Salta giocatore",
     "clue": "Indizio...",
     "instructions": "Il tuo indizio dovrebbe essere un concetto che si trova nello spettro fornito, concettualmente situato tra i due estremi, dove si trova il target. Ad esempio, \"caffè\" potrebbe essere un buon indizio che si trova nello spettro da \"caldo\" a \"freddo\".",
     "focus1": "Esprimi un pensiero singolo",

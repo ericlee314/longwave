@@ -40,6 +40,7 @@
   "giveclue": {
     "waiting_for_clue": "Esperando {{givername}} dar uma dica...",
     "draw_other_hand": "Comprar uma carta diferente",
+    "skip_player": "Pular jogador",
     "clue": "Dica...",
     "instructions": "Sua dica deve ser algum conceito dentro do espectro, localizado onde o alvo está entre os dois extremos. Por exemplo, \"café\" pode ser uma boa dica dentro do espectro de \"quente\" e \"frio\".",
     "focus1": "Use uma só ideia",
