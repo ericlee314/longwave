@@ -31,6 +31,9 @@
   "counterguess": {
     "more_left": "O alvo está a esquerda",
     "more_right": "O alvo está a direita",
+    "confirm_more_left": "Confirmar: o alvo está à esquerda",
+    "confirm_more_right": "Confirmar: o alvo está à direita",
+    "cancel": "Cancelar",
     "players_clue": "dica de {{givername}}",
     "waiting_guess_team": "Esperando por {{guessteam}} para responder esquerda/direita..."
   },
@@ -61,7 +64,9 @@
     "waiting_guessing_team": "Esperando {{guessingteam}} responder...",
     "invite_other_players": "Convidar outros jogadores para a partida.",
     "share_game_url": "Compartilhe esse endereço: {{game_url}}",
-    "guess_for_team": "Enviar resposta por {{teamname}}"
+    "guess_for_team": "Enviar resposta por {{teamname}}",
+    "confirm_guess_for_team": "Confirmar resposta por {{teamname}}",
+    "cancel": "Cancelar"
   },
   "previousturnresult": {
     "previous_game": "Turno Anterior",

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GameType, RoundPhase, TeamName } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
 import { CenteredColumn } from "../common/LayoutElements";
@@ -13,6 +13,7 @@ export function MakeGuess() {
   const { t } = useTranslation();
   const { gameState, localPlayer, clueGiver, spectrumCard, setGameState } =
     useContext(GameModelContext);
+  const [confirming, setConfirming] = useState(false);
 
   if (!clueGiver) {
     return null;
@@ -71,6 +72,7 @@ export function MakeGuess() {
           setGameState({
             guess,
           });
+          setConfirming(false);
         }}
       />
       <CenteredColumn>
@@ -79,31 +81,47 @@ export function MakeGuess() {
           <strong>{gameState.clue}</strong>
         </div>
         <div>
-          <Button
-            text={t("makeguess.guess_for_team", {
-              teamname: TeamName(localPlayer.team, t),
-            })}
-            onClick={() => {
-              RecordEvent("guess_submitted", {
-                spectrum_card: spectrumCard.join("|"),
-                clue: gameState.clue,
-                target: gameState.spectrumTarget.toString(),
-                guess: gameState.guess.toString(),
-              });
+          {!confirming ? (
+            <Button
+              text={t("makeguess.guess_for_team", {
+                teamname: TeamName(localPlayer.team, t),
+              })}
+              onClick={() => setConfirming(true)}
+            />
+          ) : (
+            <>
+              <Button
+                text={t("makeguess.confirm_guess_for_team", {
+                  teamname: TeamName(localPlayer.team, t),
+                })}
+                onClick={() => {
+                  RecordEvent("guess_submitted", {
+                    spectrum_card: spectrumCard.join("|"),
+                    clue: gameState.clue,
+                    target: gameState.spectrumTarget.toString(),
+                    guess: gameState.guess.toString(),
+                  });
 
-              if (gameState.gameType === GameType.Teams) {
-                setGameState({
-                  roundPhase: RoundPhase.CounterGuess,
-                });
-              } else if (gameState.gameType === GameType.Cooperative) {
-                setGameState(ScoreCoopRound(gameState));
-              } else {
-                setGameState({
-                  roundPhase: RoundPhase.ViewScore,
-                });
-              }
-            }}
-          />
+                  if (gameState.gameType === GameType.Teams) {
+                    setGameState({
+                      roundPhase: RoundPhase.CounterGuess,
+                    });
+                  } else if (gameState.gameType === GameType.Cooperative) {
+                    setGameState(ScoreCoopRound(gameState));
+                  } else {
+                    setGameState({
+                      roundPhase: RoundPhase.ViewScore,
+                    });
+                  }
+                  setConfirming(false);
+                }}
+              />
+              <Button
+                text={t("makeguess.cancel") as string}
+                onClick={() => setConfirming(false)}
+              />
+            </>
+          )}
         </div>
       </CenteredColumn>
     </div>

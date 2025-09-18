@@ -35,6 +35,9 @@
   "counterguess": {
     "more_left": "El objetivo está a la izquierda",
     "more_right": "El objetivo está a la derecha",
+    "confirm_more_left": "Confirmar: El objetivo está a la izquierda",
+    "confirm_more_right": "Confirmar: El objetivo está a la derecha",
+    "cancel": "Cancelar",
     "players_clue": "Pista de {{givername}}",
     "waiting_guess_team": "Esperando a que el {{guessteam}} decida si derecha o izquierda..."
   },
@@ -65,7 +68,9 @@
     "waiting_guessing_team": "Esperando a que el {{guessingteam}} decida...",
     "invite_other_players": "Invita a otros jugadores a unirse a la partida.",
     "share_game_url": "Comparte esta URL con ellos: {{game_url}}",
-    "guess_for_team": "Enviar la respuesta del {{teamname}}"
+    "guess_for_team": "Enviar la respuesta del {{teamname}}",
+    "confirm_guess_for_team": "Confirmar respuesta del {{teamname}}",
+    "cancel": "Cancelar"
   },
   "previousturnresult": {
     "previous_game": "Turno anterior",
