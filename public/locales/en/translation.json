@@ -44,6 +44,7 @@
   "giveclue": {
     "waiting_for_clue": "Waiting for {{givername}} to provide a clue...",
     "draw_other_hand": "Draw a different card",
+    "skip_player": "Skip player",
     "clue": "Clue...",
     "instructions": "Your clue should be some concept that lies on the provided spectrum, conceptually located where the target is between the two extremes. For example, \"coffee\" might be a good clue that lies on a spectrum of \"hot\" to \"cold\".",
     "focus1": "Convey a single thought",

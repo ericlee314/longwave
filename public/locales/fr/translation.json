@@ -40,6 +40,7 @@
   "giveclue": {
     "waiting_for_clue": "En attente d'un indice à fournir par {{givername}}...",
     "draw_other_hand": "Dessiner une autre carte",
+    "skip_player": "Passer le joueur",
     "clue": "Indice...",
     "instructions": "Votre indice doit être un concept en rapport avec l'éventail de valeur donnée, situé conceptuellement là où se trouve la cible entre les deux extrêmes. Par exemple, \"café\" pourrait être un bon indice reposant sur un éventail de valeur entre \"chaud\" et \"froid\".",
     "focus1": "Formulez une seule idée",

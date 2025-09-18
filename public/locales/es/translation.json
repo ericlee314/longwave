@@ -44,6 +44,7 @@
   "giveclue": {
     "waiting_for_clue": "Esperando a que {{givername}} dé una pista...",
     "draw_other_hand": "Robar una carta distinta",
+    "skip_player": "Saltar jugador",
     "clue": "Pista...",
     "instructions": "Tu pista debería ser un concepto que encaje en el espectro dado y que se sitúe en el punto entre ambos extremos en el que está el objetivo. Por ejemplo, \"café\" podría ser una buena pista para el espectro de \"caliente\" a \"frío\".",
     "focus1": "Transmite una sola idea",

@@ -44,6 +44,7 @@
     "giveclue": {
         "waiting_for_clue": "Warte auf den Hinweis von {{givername}}",
         "draw_other_hand": "Ziehe andere Karten",
+        "skip_player": "Spieler überspringen",
         "clue": "Hinweis...",
         "instructions": "Dein Hinweis sollte sich im Spektrum zwischen den beiden Begriffe befinden und ungefähr die Position des vorgegeben Ziels zwischen diesen beiden Extremen liegen. Zum Beispiel kann 'Kaffee' ein guter Hinweis für ein warmes oder hei0es Getränk auf dem Spektrum 'heiß' und 'kalt' sein.",
         "focus1": "Beschreibe einen einzelnen Gedanken",

@@ -26,6 +26,52 @@ export function GiveClue() {
       deckIndex: gameState.deckIndex + 1,
       spectrumTarget: RandomSpectrumTarget(),
     });
+
+  const skipPlayer = () => {
+    if (!clueGiver || gameState.gameType !== GameType.Teams) {
+      return;
+    }
+
+    const playerIds = Object.keys(gameState.players);
+    const leftTeamPlayers = playerIds.filter(
+      (pid) => gameState.players[pid].team === Team.Left
+    );
+    const rightTeamPlayers = playerIds.filter(
+      (pid) => gameState.players[pid].team === Team.Right
+    );
+
+    let nextClueGiverId = clueGiver.id;
+    let nextLeftRotationIndex = gameState.leftRotationIndex || 0;
+    let nextRightRotationIndex = gameState.rightRotationIndex || 0;
+
+    if (clueGiver.team === Team.Left && leftTeamPlayers.length > 0) {
+      const idx = leftTeamPlayers.length
+        ? nextLeftRotationIndex % leftTeamPlayers.length
+        : 0;
+      nextClueGiverId = leftTeamPlayers[idx];
+      nextLeftRotationIndex = leftTeamPlayers.length
+        ? (idx + 1) % leftTeamPlayers.length
+        : 0;
+    } else if (clueGiver.team === Team.Right && rightTeamPlayers.length > 0) {
+      const idx = rightTeamPlayers.length
+        ? nextRightRotationIndex % rightTeamPlayers.length
+        : 0;
+      nextClueGiverId = rightTeamPlayers[idx];
+      nextRightRotationIndex = rightTeamPlayers.length
+        ? (idx + 1) % rightTeamPlayers.length
+        : 0;
+    }
+
+    setGameState({
+      clueGiver: nextClueGiverId,
+      deckIndex: gameState.deckIndex + 1,
+      spectrumTarget: RandomSpectrumTarget(),
+      clue: "",
+      leftRotationIndex: nextLeftRotationIndex,
+      rightRotationIndex: nextRightRotationIndex,
+      roundPhase: RoundPhase.GiveClue,
+    });
+  };
   const inputElement = useRef<HTMLInputElement>(null);
   const [disableSubmit, setDisableSubmit] = useState(
     !inputElement.current?.value?.length
@@ -73,11 +119,14 @@ export function GiveClue() {
             {t("giveclue.waiting_for_clue", { givername: clueGiver.name })}
           </div>
         </CenteredColumn>
-        {gameState.gameType !== GameType.Cooperative && isGameMaster && (
+        {gameState.gameType !== GameType.Cooperative && isGameMaster ? (
           <CenteredColumn style={{ alignItems: "flex-end" }}>
             <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
+            {gameState.gameType === GameType.Teams && (
+              <Button text={t("giveclue.skip_player") as string} onClick={skipPlayer} />
+            )}
           </CenteredColumn>
-        )}
+        ) : null}
       </div>
     );
   }
@@ -96,11 +145,14 @@ export function GiveClue() {
 
   return (
     <div>
-      {gameState.gameType !== GameType.Cooperative && isGameMaster && (
+      {gameState.gameType !== GameType.Cooperative && isGameMaster ? (
         <CenteredColumn style={{ alignItems: "flex-end" }}>
           <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
+          {gameState.gameType === GameType.Teams && (
+            <Button text={t("giveclue.skip_player") as string} onClick={skipPlayer} />
+          )}
         </CenteredColumn>
-      )}
+      ) : null}
       <Animate animation="wipe-reveal-right">
         <Spectrum
           targetValue={gameState.spectrumTarget}
