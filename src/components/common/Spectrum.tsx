@@ -53,7 +53,7 @@ export function Spectrum(props: {
     const dx = x - centerX;
     const dy = y - centerY;
     // Angle relative to positive X axis, with Y inverted so 0=right, 180=left, only top half yields 0..180
-    const theta = Math.atan2(dy, dx);
+    const theta = Math.atan2(-dy, dx);
     const deg = (theta * 180) / Math.PI; // deg in (-180..180]
     if (deg < 0 || deg > 180) {
       return undefined; // outside top semicircle
