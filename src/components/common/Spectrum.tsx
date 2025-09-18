@@ -138,14 +138,6 @@ export function Spectrum(props: {
   return (
     <div style={{ padding: 8 }}>
       <CenteredColumn style={{ alignItems: "stretch" }}>
-        <CenteredRow style={{ justifyContent: "space-between" }}>
-          <div style={{ ...cardBackStyle, backgroundColor: primary, color: primaryText }}>
-            {props.spectrumCard[0]}
-          </div>
-          <div style={{ ...cardBackStyle, backgroundColor: secondary, color: secondaryText }}>
-            {props.spectrumCard[1]}
-          </div>
-        </CenteredRow>
         <div style={{ padding: "16px 16px" }}>
           <svg
             ref={svgRef}
@@ -223,6 +215,14 @@ export function Spectrum(props: {
             )}
           </svg>
         </div>
+        <CenteredRow style={{ justifyContent: "space-between" }}>
+          <div style={{ ...cardBackStyle, backgroundColor: primary, color: primaryText }}>
+            {props.spectrumCard[0]}
+          </div>
+          <div style={{ ...cardBackStyle, backgroundColor: secondary, color: secondaryText }}>
+            {props.spectrumCard[1]}
+          </div>
+        </CenteredRow>
       </CenteredColumn>
     </div>
   );
