@@ -23,7 +23,7 @@ export function RoomIdHeader() {
       }}
     >
       <div style={{ margin: 4, padding: 4 }}>
-        {t("roomidheader.roomid")} {roomId}
+        {t("roomidheader.roomid") as string} {roomId}
       </div>
       <Tippy content={<RoomMenu />} interactive placement="bottom-end">
         <div tabIndex={0} style={{ padding: 8 }}>
@@ -49,10 +49,10 @@ function RoomMenu() {
         {...menuItemProps}
         onClick={() => setGameState(InitialGameState(i18n.language))}
       >
-        <FontAwesomeIcon icon={faUndo} /> {t("roomidheader.reset_room")}
+        <FontAwesomeIcon icon={faUndo} /> {t("roomidheader.reset_room") as string}
       </div>
       <div {...menuItemProps} onClick={() => setPlayerName("")}>
-        <FontAwesomeIcon icon={faUserEdit} /> {t("roomidheader.change_name")}
+        <FontAwesomeIcon icon={faUserEdit} /> {t("roomidheader.change_name") as string}
       </div>
     </div>
   );

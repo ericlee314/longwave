@@ -24,7 +24,7 @@ export function Scoreboard() {
   if (gameState.gameType === GameType.Freeplay) {
     return (
       <CenteredColumn style={style}>
-        <em>{t("scoreboard.free_play")}</em>
+        <em>{t("scoreboard.free_play") as string}</em>
         <CenteredRow style={{ flexWrap: "wrap" }}>
           {Object.keys(gameState.players).map(toPlayerRow)}
         </CenteredRow>
@@ -37,8 +37,8 @@ export function Scoreboard() {
     return (
       <CenteredColumn style={style}>
         <em>
-          {t("scoreboard.coop_score")}: {gameState.coopScore}{" "}
-          {t("scoreboard.points")}
+          {t("scoreboard.coop_score") as string}: {gameState.coopScore}{" "}
+          {t("scoreboard.points") as string}
         </em>
         <div>
           {cardsRemaining === 0
@@ -72,7 +72,7 @@ function TeamColumn(props: { team: Team; score: number }) {
     <CenteredColumn style={{ alignItems: "flex-start" }}>
       <div>
         {TeamName(props.team, t)}: <AnimatableScore score={props.score} />{" "}
-        {t("scoreboard.points")}
+        {t("scoreboard.points") as string}
       </div>
       {members.map(toPlayerRow)}
     </CenteredColumn>

@@ -46,7 +46,7 @@ export function JoinTeam() {
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
-      <div>{t("jointeam.join_team")}:</div>
+      <div>{t("jointeam.join_team") as string}:</div>
       <CenteredRow
         style={{
           alignItems: "flex-start",
@@ -60,7 +60,7 @@ export function JoinTeam() {
           ))}
           <div>
             <Button
-              text={t("jointeam.join_left")}
+              text={t("jointeam.join_left") as string}
               onClick={() => joinTeam(Team.Left)}
             />
           </div>
@@ -72,14 +72,14 @@ export function JoinTeam() {
           ))}
           <div>
             <Button
-              text={t("jointeam.join_right")}
+              text={t("jointeam.join_right") as string}
               onClick={() => joinTeam(Team.Right)}
             />
           </div>
         </CenteredColumn>
       </CenteredRow>
       {gameState.roundPhase === RoundPhase.PickTeams && (
-        <Button text={t("jointeam.start_game")} onClick={startGame} />
+        <Button text={t("jointeam.start_game") as string} onClick={startGame} />
       )}
     </CenteredColumn>
   );

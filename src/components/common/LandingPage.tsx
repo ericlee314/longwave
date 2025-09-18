@@ -19,7 +19,7 @@ export function LandingPage() {
       <LongwaveAppTitle />
       <CenteredRow>
         <Button
-          text={t("landingpage.create_room")}
+          text={t("landingpage.create_room") as string}
           onClick={() => {
             history.push("/" + RandomFourCharacterString());
           }}
@@ -27,9 +27,9 @@ export function LandingPage() {
         <LanguageMenu />
       </CenteredRow>
       <p style={{ margin: 8 }}>
-        <strong>{t("landingpage.longwave")}</strong>{" "}
-        {t("landingpage.adaptation")} <em>{t("landingpage.wavelength")}</em>.{" "}
-        {t("landingpage.best_enjoyed")}
+        <strong>{t("landingpage.longwave") as string}</strong>{" "}
+        {t("landingpage.adaptation")} <em>{t("landingpage.wavelength") as string}</em>.{" "}
+        {t("landingpage.best_enjoyed") as string}
       </p>
     </CenteredColumn>
   );

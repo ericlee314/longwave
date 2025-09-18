@@ -50,11 +50,11 @@ export function ViewScore() {
           <strong>{gameState.clue}</strong>
         </div>
         <div>
-          {t("viewscore.score")}: {score} {t("viewscore.points")}!
+          {t("viewscore.score")}: {score} {t("viewscore.points") as string}!
         </div>
         {gameState.gameType === GameType.Teams && (
           <div>
-            {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got")}{" "}
+            {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got") as string}{" "}
             {wasCounterGuessCorrect
               ? t("viewscore.1_point_correct_guess")
               : t("viewscore.0_point_wrong_guess")}
@@ -86,7 +86,7 @@ function NextTurnOrEndGame() {
 
   const resetButton = (
     <Button
-      text={t("viewscore.reset_game")}
+      text={t("viewscore.reset_game") as string}
       onClick={() => {
         setGameState({
           ...InitialGameState(i18n.language),
@@ -128,11 +128,11 @@ function NextTurnOrEndGame() {
   ) {
     return (
       <>
-        <div>{t("viewscore.game_finished")}</div>
+        <div>{t("viewscore.game_finished") as string}</div>
         <div>
-          {t("viewscore.final_score_team")}:{" "}
+          {t("viewscore.final_score_team") as string}:{" "}
           <strong>
-            {gameState.coopScore} {t("viewscore.points")}
+            {gameState.coopScore} {t("viewscore.points") as string}
           </strong>
         </div>
         {resetButton}
@@ -195,7 +195,7 @@ function NextTurnOrEndGame() {
       )}
       {eligibleToDraw && (
         <Button
-          text={t("viewscore.draw_next_card")}
+          text={t("viewscore.draw_next_card") as string}
           onClick={() =>
             setGameState(
               NewRound(localPlayer.id, gameState, cardsTranslation.t)

@@ -68,7 +68,7 @@ export function GiveClue() {
     <div>
       {gameState.gameType !== GameType.Cooperative && (
         <CenteredColumn style={{ alignItems: "flex-end" }}>
-          <Button text={t("giveclue.draw_other_hand")} onClick={redrawCard} />
+          <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
         </CenteredColumn>
       )}
       <Animate animation="wipe-reveal-right">
@@ -81,7 +81,7 @@ export function GiveClue() {
         <CenteredRow>
           <input
             type="text"
-            placeholder={t("giveclue.clue")}
+            placeholder={t("giveclue.clue") as string}
             ref={inputElement}
             onKeyDown={(event) => {
               if (event.key !== "Enter") {
@@ -95,18 +95,18 @@ export function GiveClue() {
           />
           <Info>
             <div>
-              {t("giveclue.instructions")}
+              {t("giveclue.instructions") as string}
               <ul>
-                <li>{t("giveclue.focus1")}</li>
-                <li>{t("giveclue.focus2")}</li>
-                <li>{t("giveclue.focus3")}</li>
-                <li>{t("giveclue.focus4")}</li>
+                <li>{t("giveclue.focus1") as string}</li>
+                <li>{t("giveclue.focus2") as string}</li>
+                <li>{t("giveclue.focus3") as string}</li>
+                <li>{t("giveclue.focus4") as string}</li>
               </ul>
             </div>
           </Info>
         </CenteredRow>
         <Button
-          text={t("giveclue.give_clue")}
+          text={t("giveclue.give_clue") as string}
           onClick={submit}
           disabled={disableSubmit}
         />

@@ -16,19 +16,19 @@ export function CommonFooter() {
       <CenteredColumn>
         <p style={{ margin: 8 }}>
           <Link href="https://www.wavelength.zone" text="Wavelength" />{" "}
-          {t("commonfooter.developed_by")}{" "}
+          {t("commonfooter.developed_by") as string}{" "}
           <Link
             href="https://github.com/cynicaloptimist/longwave"
-            text={t("commonfooter.adapted_for_web")}
+            text={t("commonfooter.adapted_for_web") as string}
           />{" "}
-          {t("commonfooter.adapted_for_web_by")}
+          {t("commonfooter.adapted_for_web_by") as string}
         </p>
         {/* we want referrer, so: */}
         {/* eslint-disable-next-line react/jsx-no-target-blank */}
         <a target="_blank" href="https://www.patreon.com/improvedinitiative">
           <img
             alt="Patreon logo"
-            title={t("commonfooter.support_patreon")}
+            title={t("commonfooter.support_patreon") as string}
             src="./Digital-Patreon-Wordmark_FieryCoral.png"
             style={{ width: "150px", margin: 8 }}
           />

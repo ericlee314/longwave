@@ -47,7 +47,7 @@ export function MakeGuess() {
                 border: "1px solid black",
               }}
             >
-              <p>{t("makeguess.invite_other_players")}</p>
+              <p>{t("makeguess.invite_other_players") as string}</p>
               <p>
                 {t("makeguess.share_game_url", {
                   game_url: window.location.href,

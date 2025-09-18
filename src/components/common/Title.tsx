@@ -22,7 +22,7 @@ export function LongwaveAppTitle() {
         WebkitTextFillColor: "transparent",
       }}
     >
-      {t("title.longwave")}
+      {t("title.longwave") as string}
     </h1>
   );
 }

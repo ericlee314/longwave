@@ -10,7 +10,7 @@ export function InputName(props: { setName: (name: string) => void }) {
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
-      <div>{t("inputname.your_name")}:</div>
+      <div>{t("inputname.your_name") as string}:</div>
       <input
         type="text"
         style={{ margin: 16 }}

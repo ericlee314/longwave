@@ -26,7 +26,7 @@ export function PreviousTurnResult(props: TurnSummaryModel) {
   return (
     <div style={style}>
       <CenteredColumn>
-        <em>{t("previousturnresult.previous_game")}</em>
+        <em>{t("previousturnresult.previous_game") as string}</em>
       </CenteredColumn>
       <div
         style={{
