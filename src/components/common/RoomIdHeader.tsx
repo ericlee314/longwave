@@ -36,7 +36,9 @@ export function RoomIdHeader() {
 
 function RoomMenu() {
   const { t, i18n } = useTranslation();
-  const { setGameState, setPlayerName, gameState } = useContext(GameModelContext);
+  const { setGameState, setPlayerName, gameState, localPlayer } = useContext(GameModelContext);
+
+  const isGameMaster = localPlayer.id === gameState.creatorId;
 
   const menuItemProps = {
     style: { margin: 8, cursor: "pointer" },
@@ -47,10 +49,22 @@ function RoomMenu() {
     <div>
       <div
         {...menuItemProps}
-        onClick={() => setGameState({
-          ...InitialGameState(i18n.language),
-          creatorId: gameState.creatorId,
-        })}
+        style={{
+          ...menuItemProps.style,
+          cursor: isGameMaster ? "pointer" : "not-allowed",
+          opacity: isGameMaster ? 1 : 0.5,
+        }}
+        tabIndex={isGameMaster ? 0 : -1}
+        aria-disabled={!isGameMaster}
+        onClick={
+          isGameMaster
+            ? () =>
+                setGameState({
+                  ...InitialGameState(i18n.language),
+                  creatorId: gameState.creatorId,
+                })
+            : undefined
+        }
       >
         <FontAwesomeIcon icon={faUndo} /> {t("roomidheader.reset_room") as string}
       </div>
