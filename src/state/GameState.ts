@@ -33,12 +33,16 @@ export function TeamReverse(team: Team) {
   return Team.Unset;
 }
 
-export function TeamName(team: Team, t: TFunction<string>) {
+export function TeamName(team: Team, t: TFunction<string>, gameState: GameState) {
   if (team === Team.Left) {
-    return t("gamestate.left_brain");
+    return gameState.leftTeamName && gameState.leftTeamName.trim().length > 0
+      ? gameState.leftTeamName
+      : t("gamestate.left_brain");
   }
   if (team === Team.Right) {
-    return t("gamestate.right_brain");
+    return gameState.rightTeamName && gameState.rightTeamName.trim().length > 0
+      ? gameState.rightTeamName
+      : t("gamestate.right_brain");
   }
   return t("gamestate.the_player");
 }
@@ -77,6 +81,8 @@ export interface GameState {
   previousTurn: TurnSummaryModel | null;
   deckLanguage: string | null;
   creatorId: string;
+  leftTeamName: string;
+  rightTeamName: string;
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -99,5 +105,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     previousTurn: null,
     deckLanguage: deckLanguage,
     creatorId: "",
+    leftTeamName: "",
+    rightTeamName: "",
   };
 }

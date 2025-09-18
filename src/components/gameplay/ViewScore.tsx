@@ -54,7 +54,7 @@ export function ViewScore() {
         </div>
         {gameState.gameType === GameType.Teams && (
           <div>
-            {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got") as string}{" "}
+            {TeamName(TeamReverse(clueGiver.team), t, gameState)} {t("viewscore.got") as string}{" "}
             {wasCounterGuessCorrect
               ? t("viewscore.1_point_correct_guess")
               : t("viewscore.0_point_wrong_guess")}
@@ -93,6 +93,8 @@ function NextTurnOrEndGame() {
           deckSeed: gameState.deckSeed,
           deckIndex: gameState.deckIndex,
           creatorId: gameState.creatorId,
+          leftTeamName: gameState.leftTeamName,
+          rightTeamName: gameState.rightTeamName,
         });
       }}
     />
@@ -102,7 +104,7 @@ function NextTurnOrEndGame() {
     return (
       <>
         <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t) }) as string}
+          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t, gameState) }) as string}
         </div>
         {resetButton}
       </>
@@ -116,7 +118,7 @@ function NextTurnOrEndGame() {
     return (
       <>
         <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t) }) as string}
+          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t, gameState) }) as string}
         </div>
         {resetButton}
       </>
@@ -143,7 +145,7 @@ function NextTurnOrEndGame() {
 
   const score = GetScore(gameState.spectrumTarget, gameState.guess);
 
-  const scoringTeamString = TeamName(clueGiver.team, t);
+  const scoringTeamString = TeamName(clueGiver.team, t, gameState);
 
   let bonusTurn = false;
 

@@ -59,6 +59,8 @@
     "join_team": "Join Team",
     "join_left": "Join",
     "join_right": "Join",
+    "left_team_name": "Left team name",
+    "right_team_name": "Right team name",
     "start_game": "Start game",
     "creator_is_observer": "You created this room and are following along as Game Master. You won't join a team or submit clues/guesses.",
     "only_creator_can_start": "Only the game master can start the game."
