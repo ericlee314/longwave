@@ -174,6 +174,40 @@ function NextTurnOrEndGame() {
     return TeamReverse(clueGiver.team);
   })();
 
+  const nextClueGiverName = (() => {
+    if (gameState.gameType !== GameType.Teams) {
+      return "";
+    }
+
+    const playerIds = Object.keys(gameState.players);
+    const eligiblePlayers = playerIds.filter(
+      (pid) => gameState.players[pid].team !== Team.Unset && pid !== gameState.creatorId
+    );
+    const leftTeamPlayers = playerIds.filter(
+      (pid) => gameState.players[pid].team === Team.Left
+    );
+    const rightTeamPlayers = playerIds.filter(
+      (pid) => gameState.players[pid].team === Team.Right
+    );
+
+    let nextId: string | null = null;
+    if (nextTeam === Team.Left && leftTeamPlayers.length > 0) {
+      const idx = leftTeamPlayers.length
+        ? gameState.leftRotationIndex % leftTeamPlayers.length
+        : 0;
+      nextId = leftTeamPlayers[idx];
+    } else if (nextTeam === Team.Right && rightTeamPlayers.length > 0) {
+      const idx = rightTeamPlayers.length
+        ? gameState.rightRotationIndex % rightTeamPlayers.length
+        : 0;
+      nextId = rightTeamPlayers[idx];
+    } else if (eligiblePlayers.length > 0) {
+      nextId = eligiblePlayers[0];
+    }
+
+    return nextId ? gameState.players[nextId]?.name : "";
+  })();
+
   const eligibleToDraw = (() => {
     if (clueGiver.id === localPlayer.id) {
       return false;
@@ -194,6 +228,13 @@ function NextTurnOrEndGame() {
             {t("viewscore.catching_up", { scoringteam: scoringTeamString }) as string}
           </div>
           <Info>{t("viewscore.catching_up_info") as string}</Info>
+        </CenteredRow>
+      )}
+      {gameState.gameType === GameType.Teams && nextClueGiverName && (
+        <CenteredRow>
+          <div>
+            {t("viewscore.next_clue_giver", { givername: nextClueGiverName }) as string}
+          </div>
         </CenteredRow>
       )}
       {gameState.gameType === GameType.Teams

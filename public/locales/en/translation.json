@@ -107,6 +107,7 @@
     "draw_next_card": "Draw next Spectrum Card",
     "next_round": "Next round",
     "score": "Score",
-    "got": "gets"
+    "got": "gets",
+    "next_clue_giver": "Next clue: {{givername}}"
   }
 }
