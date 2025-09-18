@@ -19,6 +19,13 @@ export function GiveClue() {
     spectrumCard,
     setGameState,
   } = useContext(GameModelContext);
+  const isGameMaster = localPlayer.id === gameState.creatorId;
+
+  const redrawCard = () =>
+    setGameState({
+      deckIndex: gameState.deckIndex + 1,
+      spectrumTarget: RandomSpectrumTarget(),
+    });
   const inputElement = useRef<HTMLInputElement>(null);
   const [disableSubmit, setDisableSubmit] = useState(
     !inputElement.current?.value?.length
@@ -66,6 +73,11 @@ export function GiveClue() {
             {t("giveclue.waiting_for_clue", { givername: clueGiver.name })}
           </div>
         </CenteredColumn>
+        {gameState.gameType !== GameType.Cooperative && isGameMaster && (
+          <CenteredColumn style={{ alignItems: "flex-end" }}>
+            <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
+          </CenteredColumn>
+        )}
       </div>
     );
   }
@@ -82,15 +94,9 @@ export function GiveClue() {
     });
   };
 
-  const redrawCard = () =>
-    setGameState({
-      deckIndex: gameState.deckIndex + 1,
-      spectrumTarget: RandomSpectrumTarget(),
-    });
-
   return (
     <div>
-      {gameState.gameType !== GameType.Cooperative && (
+      {gameState.gameType !== GameType.Cooperative && isGameMaster && (
         <CenteredColumn style={{ alignItems: "flex-end" }}>
           <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
         </CenteredColumn>
