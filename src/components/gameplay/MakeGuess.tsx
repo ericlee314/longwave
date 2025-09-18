@@ -89,7 +89,7 @@ export function MakeGuess() {
               onClick={() => setConfirming(true)}
             />
           ) : (
-            <>
+            <CenteredColumn>
               <Button
                 text={t("makeguess.confirm_guess_for_team", {
                   teamname: TeamName(localPlayer.team, t, gameState),
@@ -120,7 +120,7 @@ export function MakeGuess() {
                 text={t("makeguess.cancel") as string}
                 onClick={() => setConfirming(false)}
               />
-            </>
+            </CenteredColumn>
           )}
         </div>
       </CenteredColumn>

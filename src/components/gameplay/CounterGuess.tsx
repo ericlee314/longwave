@@ -70,7 +70,7 @@ export function CounterGuess() {
           </>
         )}
         {pendingDirection !== null && (
-          <>
+          <CenteredColumn>
             <Button
               text={
                 pendingDirection === "left"
@@ -91,7 +91,7 @@ export function CounterGuess() {
               text={t("counterguess.cancel") as string}
               onClick={() => setPendingDirection(null)}
             />
-          </>
+          </CenteredColumn>
         )}
       </CenteredRow>
     </div>
