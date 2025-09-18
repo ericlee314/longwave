@@ -119,12 +119,9 @@ export function GiveClue() {
             {t("giveclue.waiting_for_clue", { givername: clueGiver.name })}
           </div>
         </CenteredColumn>
-        {(gameState.gameType !== GameType.Cooperative && isGameMaster) ||
-        (gameState.gameType === GameType.Teams && isGameMaster) ? (
+        {gameState.gameType !== GameType.Cooperative && isGameMaster ? (
           <CenteredColumn style={{ alignItems: "flex-end" }}>
-            {gameState.gameType !== GameType.Cooperative && (
-              <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
-            )}
+            <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
             {gameState.gameType === GameType.Teams && (
               <Button text={t("giveclue.skip_player") as string} onClick={skipPlayer} />
             )}
@@ -148,12 +145,9 @@ export function GiveClue() {
 
   return (
     <div>
-      {(gameState.gameType !== GameType.Cooperative && isGameMaster) ||
-      (gameState.gameType === GameType.Teams && isGameMaster) ? (
+      {gameState.gameType !== GameType.Cooperative && isGameMaster ? (
         <CenteredColumn style={{ alignItems: "flex-end" }}>
-          {gameState.gameType !== GameType.Cooperative && (
-            <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
-          )}
+          <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />
           {gameState.gameType === GameType.Teams && (
             <Button text={t("giveclue.skip_player") as string} onClick={skipPlayer} />
           )}
