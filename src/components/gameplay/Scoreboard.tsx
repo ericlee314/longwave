@@ -26,7 +26,9 @@ export function Scoreboard() {
       <CenteredColumn style={style}>
         <em>{t("scoreboard.free_play") as string}</em>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map(toPlayerRow)}
+          {Object.keys(gameState.players).map((playerId) => (
+            <PlayerRow key={playerId} playerId={playerId} />
+          ))}
         </CenteredRow>
       </CenteredColumn>
     );
@@ -46,7 +48,9 @@ export function Scoreboard() {
             : t("scoreboard.card_remaining") + ": " + cardsRemaining}
         </div>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map(toPlayerRow)}
+          {Object.keys(gameState.players).map((playerId) => (
+            <PlayerRow key={playerId} playerId={playerId} />
+          ))}
         </CenteredRow>
       </CenteredColumn>
     );
@@ -62,19 +66,81 @@ export function Scoreboard() {
 
 function TeamColumn(props: { team: Team; score: number }) {
   const { t } = useTranslation();
-  const { gameState } = useContext(GameModelContext);
+  const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
 
   const members = Object.keys(gameState.players).filter(
     (playerId) => gameState.players[playerId].team === props.team
   );
 
+  const isGameMaster = localPlayer.id === gameState.creatorId;
+
+  const adjustScore = (delta: number) => {
+    if (!isGameMaster || gameState.gameType !== GameType.Teams) return;
+    const key = props.team === Team.Left ? "leftScore" : "rightScore";
+    const current = (gameState as any)[key] as number;
+    // Clamp between 0 and 10
+    const next = Math.max(0, Math.min(10, current + delta));
+    if (next !== current) {
+      setGameState({ [key]: next } as any);
+    }
+  };
+
+  const subtleButtonStyle: React.CSSProperties = {
+    marginLeft: 6,
+    padding: "0 6px",
+    borderRadius: 4,
+    border: "1px solid rgba(0,0,0,0.15)",
+    background: "rgba(0,0,0,0.03)",
+    cursor: isGameMaster ? "pointer" : "default",
+    opacity: isGameMaster ? 0.55 : 0,
+    transition: "opacity 0.2s ease",
+    userSelect: "none",
+  };
+
   return (
     <CenteredColumn style={{ alignItems: "flex-start" }}>
-      <div>
-        {TeamName(props.team, t, gameState)}: <AnimatableScore score={props.score} />{" "}
-        {t("scoreboard.points") as string}
+      <div
+        style={{ display: "flex", alignItems: "center" }}
+        onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+          const container = e.currentTarget;
+          Array.from(container.querySelectorAll("button.gm-adjust")).forEach(
+            (el) => ((el as HTMLButtonElement).style.opacity = isGameMaster ? "0.55" : "0")
+          );
+        }}
+        onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+          const container = e.currentTarget;
+          Array.from(container.querySelectorAll("button.gm-adjust")).forEach(
+            (el) => ((el as HTMLButtonElement).style.opacity = "0")
+          );
+        }}
+      >
+        {TeamName(props.team, t, gameState)}: <AnimatableScore score={props.score} /> {t("scoreboard.points") as string}
+        <button
+          type="button"
+          className="gm-adjust"
+          style={subtleButtonStyle}
+          aria-label="Decrease score"
+          title={isGameMaster ? "Decrease score" : undefined}
+          onClick={() => adjustScore(-1)}
+          disabled={!isGameMaster}
+        >
+          −
+        </button>
+        <button
+          type="button"
+          className="gm-adjust"
+          style={subtleButtonStyle}
+          aria-label="Increase score"
+          title={isGameMaster ? "Increase score" : undefined}
+          onClick={() => adjustScore(1)}
+          disabled={!isGameMaster}
+        >
+          +
+        </button>
       </div>
-      {members.map(toPlayerRow)}
+      {members.map((playerId) => (
+        <PlayerRow key={playerId} playerId={playerId} />
+      ))}
     </CenteredColumn>
   );
 }
@@ -90,6 +156,8 @@ function AnimatableScore(props: { score: number }) {
     return <span>{props.score}</span>;
   }
 
+  const delta = props.score - lastScore.current;
+
   return (
     <span style={{ position: "relative" }}>
       {props.score}
@@ -102,15 +170,13 @@ function AnimatableScore(props: { score: number }) {
           right: 0,
         }}
       >
-        +{props.score - lastScore.current}
+        {delta > 0 ? `+${delta}` : `${delta}`}
       </Animate>
     </span>
   );
 }
 
-function toPlayerRow(playerId: string) {
-  return <PlayerRow key={playerId} playerId={playerId} />;
-}
+// (helper removed; inline mapping used to avoid prop type conflicts for 'key')
 
 function PlayerRow(props: { playerId: string }) {
   const { gameState, setGameState } = useContext(GameModelContext);
