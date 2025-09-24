@@ -1,4 +1,6 @@
 import { useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import "firebase/database";
 import { RandomFourCharacterString } from "../../state/RandomFourCharacterString";
 import { CenteredColumn, CenteredRow } from "./LayoutElements";
 import { Button } from "./Button";
@@ -14,14 +16,34 @@ export function LandingPage() {
   const { t } = useTranslation();
 
   const history = useHistory();
+  async function generateUniqueRoomId(maxAttempts: number = 10): Promise<string> {
+    for (let attemptIndex = 0; attemptIndex < maxAttempts; attemptIndex++) {
+      const candidateRoomId = RandomFourCharacterString();
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("rooms/" + candidateRoomId)
+          .once("value");
+        if (!snapshot.exists()) {
+          return candidateRoomId;
+        }
+      } catch (error) {
+        // If Firebase check fails, fall back to the current candidate
+        return candidateRoomId;
+      }
+    }
+    // As a final fallback, return a fresh random ID
+    return RandomFourCharacterString();
+  }
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
       <CenteredRow>
         <Button
           text={t("landingpage.create_room") as string}
-          onClick={() => {
-            history.push("/" + RandomFourCharacterString());
+          onClick={async () => {
+            const uniqueRoomId = await generateUniqueRoomId();
+            history.push("/" + uniqueRoomId);
           }}
         />
         <LanguageMenu />
