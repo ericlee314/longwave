@@ -33,6 +33,37 @@ export function GameRoom() {
 
   const cardsTranslation = useTranslation("spectrum-cards");
 
+  // Toggle page border based on which team is currently acting
+  useEffect(() => {
+    const body = document.body;
+    const clear = () => body.classList.remove("left-acting", "right-acting");
+    clear();
+    try {
+      if (gameState.gameType !== GameType.Teams) return;
+      const phase = gameState.roundPhase;
+      const isActingPhase =
+        phase === RoundPhase.GiveClue ||
+        phase === RoundPhase.MakeGuess ||
+        phase === RoundPhase.CounterGuess;
+      if (!isActingPhase) return;
+      const clueGiverId = gameState.clueGiver;
+      const clueGiver = gameState.players[clueGiverId];
+      if (!clueGiver) return;
+      let actingTeam = clueGiver.team;
+      if (phase === RoundPhase.CounterGuess) {
+        actingTeam = actingTeam === Team.Left ? Team.Right : actingTeam === Team.Right ? Team.Left : Team.Unset;
+      }
+      if (actingTeam === Team.Left) {
+        body.classList.add("left-acting");
+      } else if (actingTeam === Team.Right) {
+        body.classList.add("right-acting");
+      }
+    } finally {
+      // no-op
+    }
+    return clear;
+  }, [gameState]);
+
   if (
     gameState.deckLanguage !== null &&
     cardsTranslation.i18n.language !== gameState.deckLanguage
@@ -77,36 +108,7 @@ export function GameRoom() {
     return null;
   }
 
-  // Toggle page border based on which team is currently acting
-  useEffect(() => {
-    const body = document.body;
-    const clear = () => body.classList.remove("left-acting", "right-acting");
-    clear();
-    try {
-      if (gameState.gameType !== GameType.Teams) return;
-      const phase = gameState.roundPhase;
-      const isActingPhase =
-        phase === RoundPhase.GiveClue ||
-        phase === RoundPhase.MakeGuess ||
-        phase === RoundPhase.CounterGuess;
-      if (!isActingPhase) return;
-      const clueGiverId = gameState.clueGiver;
-      const clueGiver = gameState.players[clueGiverId];
-      if (!clueGiver) return;
-      let actingTeam = clueGiver.team;
-      if (phase === RoundPhase.CounterGuess) {
-        actingTeam = actingTeam === Team.Left ? Team.Right : actingTeam === Team.Right ? Team.Left : Team.Unset;
-      }
-      if (actingTeam === Team.Left) {
-        body.classList.add("left-acting");
-      } else if (actingTeam === Team.Right) {
-        body.classList.add("right-acting");
-      }
-    } finally {
-      // no-op
-    }
-    return clear;
-  }, [gameState]);
+  
 
   return (
     <GameModelContext.Provider value={gameModel}>
