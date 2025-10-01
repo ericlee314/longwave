@@ -84,7 +84,8 @@
     "last_card": "Ultima carta!",
     "card_remaining": "Carte rimanenti",
     "coop_score": "Punteggio Cooperative",
-    "points": "PUNTI"
+    "points": "PUNTI",
+    "point": "PUNTO"
   },
   "setupgame": {
     "standard_game": "Classica (S): 4+ Giocatori",

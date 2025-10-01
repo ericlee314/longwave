@@ -84,7 +84,8 @@
     "last_card": "¡Última tarjeta!",
     "card_remaining": "Tarjetas restantes",
     "coop_score": "Puntuación cooperativa",
-    "points": "PUNTOS"
+    "points": "PUNTOS",
+    "point": "PUNTO"
   },
   "setupgame": {
     "standard_game": "Estándar (por equipos): 4+ jugadores",

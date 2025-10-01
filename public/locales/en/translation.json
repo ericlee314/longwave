@@ -87,7 +87,8 @@
     "last_card": "Last Card!",
     "card_remaining": "Cards remaining",
     "coop_score": "Cooperative Score",
-    "points": "POINTS"
+    "points": "POINTS",
+    "point": "POINT"
   },
   "setupgame": {
     "standard_game": "Standard (Teams): 4+ Players",
