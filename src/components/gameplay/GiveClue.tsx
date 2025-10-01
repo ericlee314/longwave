@@ -145,6 +145,20 @@ export function GiveClue() {
 
   return (
     <div>
+      <div
+        style={{
+          background: "#fff3cd",
+          border: "1px solid #ffeeba",
+          color: "#856404",
+          padding: "12px 16px",
+          borderRadius: 4,
+          margin: "12px 0",
+          fontWeight: 600,
+          textAlign: "center",
+        }}
+      >
+        {t("giveclue.helper") as string}
+      </div>
       {gameState.gameType !== GameType.Cooperative && isGameMaster ? (
         <CenteredColumn style={{ alignItems: "flex-end" }}>
           <Button text={t("giveclue.draw_other_hand") as string} onClick={redrawCard} />

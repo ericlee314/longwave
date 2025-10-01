@@ -33,6 +33,7 @@
     "the_player": "THE PLAYER"
   },
   "counterguess": {
+    "helper": "Coordinate with your team to predict whether the actual target is to the left or right of the opposing team's guess.",
     "more_left": "Target is to the left",
     "more_right": "Target is to the right",
     "confirm_more_left": "Confirm: Target is to the left",
@@ -42,6 +43,7 @@
     "waiting_guess_team": "Waiting for {{guessteam}} to guess left/right..."
   },
   "giveclue": {
+    "helper": "You're the only person who can see the colored target! Type a simple clue, which will help your teammates guess the location of the target. Then stay silent!",
     "waiting_for_clue": "Waiting for {{givername}} to provide a clue...",
     "draw_other_hand": "Draw a different card",
     "skip_player": "Skip player",
@@ -67,6 +69,7 @@
     "only_creator_can_start": "Only the game master can start the game."
   },
   "makeguess": {
+    "helper": "Coordinate with your team to guess the location of the target. Drag the dial to the desired location, then one player may submit the guess.",
     "players_clue": "{{givername}}'s clue",
     "waiting_guessing_team": "Waiting for {{guessingteam}} to guess...",
     "invite_other_players": "Invite other players to join the game.",
