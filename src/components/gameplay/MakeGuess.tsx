@@ -65,16 +65,56 @@ export function MakeGuess() {
 
   return (
     <div>
-      <Spectrum
-        spectrumCard={spectrumCard}
-        handleValue={gameState.guess}
-        onChange={(guess: number) => {
-          setGameState({
-            guess,
-          });
-          setConfirming(false);
-        }}
-      />
+      <div style={{ position: "relative" }}>
+        <Spectrum
+          spectrumCard={spectrumCard}
+          handleValue={gameState.guess}
+          onChange={(guess: number) => {
+            setGameState({
+              guess,
+            });
+            setConfirming(false);
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 8,
+            transform: "translateY(-50%)",
+            zIndex: 1,
+          }}
+        >
+          <Button
+            text="←"
+            onClick={() => {
+              const next = Math.max(0, gameState.guess - 1);
+              setGameState({ guess: next });
+              setConfirming(false);
+            }}
+            disabled={gameState.guess <= 0}
+          />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: 8,
+            transform: "translateY(-50%)",
+            zIndex: 1,
+          }}
+        >
+          <Button
+            text="→"
+            onClick={() => {
+              const next = Math.min(20, gameState.guess + 1);
+              setGameState({ guess: next });
+              setConfirming(false);
+            }}
+            disabled={gameState.guess >= 20}
+          />
+        </div>
+      </div>
       <CenteredColumn>
         <div>
           {t("makeguess.players_clue", { givername: clueGiver.name })}:{" "}
