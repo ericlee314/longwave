@@ -86,7 +86,7 @@ function TeamColumn(props: { team: Team; score: number }) {
   };
 
   const subtleButtonStyle: React.CSSProperties = {
-    marginLeft: 6,
+    marginLeft: 0,
     padding: "0 6px",
     borderRadius: 4,
     border: "1px solid rgba(0,0,0,0.15)",
@@ -100,7 +100,7 @@ function TeamColumn(props: { team: Team; score: number }) {
   return (
     <CenteredColumn style={{ alignItems: "flex-start" }}>
       <div
-        style={{ display: "flex", alignItems: "center" }}
+        style={{ display: "flex", alignItems: "center", gap: 4 }}
         onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
           const container = e.currentTarget;
           Array.from(container.querySelectorAll("button.gm-adjust")).forEach(
@@ -114,7 +114,11 @@ function TeamColumn(props: { team: Team; score: number }) {
           );
         }}
       >
-        {TeamName(props.team, t, gameState)}: <AnimatableScore score={props.score} /> {t("scoreboard.points") as string}
+        {TeamName(props.team, t, gameState)}:
+        <span style={{ fontWeight: 700 }}>
+          <AnimatableScore score={props.score} />
+        </span>
+        {t("scoreboard.points") as string}
         <button
           type="button"
           className="gm-adjust"
