@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GameType, RoundPhase, TeamName } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
-import { CenteredColumn } from "../common/LayoutElements";
+import { CenteredColumn, CenteredRow } from "../common/LayoutElements";
 import { Button } from "../common/Button";
 import { GameModelContext } from "../../state/GameModelContext";
 import { RecordEvent } from "../../TrackEvent";
@@ -65,16 +65,36 @@ export function MakeGuess() {
 
   return (
     <div>
-      <Spectrum
-        spectrumCard={spectrumCard}
-        handleValue={gameState.guess}
-        onChange={(guess: number) => {
-          setGameState({
-            guess,
-          });
-          setConfirming(false);
-        }}
-      />
+      <CenteredRow style={{ gap: 8 }}>
+        <Button
+          text="←"
+          onClick={() => {
+            const next = Math.max(0, gameState.guess - 1);
+            setGameState({ guess: next });
+            setConfirming(false);
+          }}
+          disabled={gameState.guess <= 0}
+        />
+        <Spectrum
+          spectrumCard={spectrumCard}
+          handleValue={gameState.guess}
+          onChange={(guess: number) => {
+            setGameState({
+              guess,
+            });
+            setConfirming(false);
+          }}
+        />
+        <Button
+          text="→"
+          onClick={() => {
+            const next = Math.min(20, gameState.guess + 1);
+            setGameState({ guess: next });
+            setConfirming(false);
+          }}
+          disabled={gameState.guess >= 20}
+        />
+      </CenteredRow>
       <CenteredColumn>
         <div>
           {t("makeguess.players_clue", { givername: clueGiver.name })}:{" "}
