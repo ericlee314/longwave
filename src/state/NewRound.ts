@@ -45,20 +45,52 @@ export function NewRound(
 
   if (playerId === gameState.creatorId && gameState.gameType === GameType.Teams) {
     if (!hasPreviousClueGiver) {
-      // First round: choose the first eligible player and set rotation index accordingly
+      // First round: randomly choose which team goes first (if both have players)
+      // and pick the first eligible player from that team. Then set rotation index.
       if (eligiblePlayers.length > 0) {
-        nextClueGiver = eligiblePlayers[0];
-        const chosenTeam = gameState.players[nextClueGiver]?.team;
-        if (chosenTeam === Team.Left) {
+        const leftEligible = eligiblePlayers.filter(
+          (pid) => gameState.players[pid].team === Team.Left
+        );
+        const rightEligible = eligiblePlayers.filter(
+          (pid) => gameState.players[pid].team === Team.Right
+        );
+
+        let startingTeam: Team | null = null;
+        if (leftEligible.length > 0 && rightEligible.length > 0) {
+          startingTeam = Math.random() < 0.5 ? Team.Left : Team.Right;
+        } else if (leftEligible.length > 0) {
+          startingTeam = Team.Left;
+        } else if (rightEligible.length > 0) {
+          startingTeam = Team.Right;
+        }
+
+        if (startingTeam === Team.Left && leftEligible.length > 0) {
+          nextClueGiver = leftEligible[0];
           const pos = Math.max(0, leftTeamPlayers.indexOf(nextClueGiver));
           nextLeftRotationIndex = leftTeamPlayers.length
             ? (pos + 1) % leftTeamPlayers.length
             : 0;
-        } else if (chosenTeam === Team.Right) {
+        } else if (startingTeam === Team.Right && rightEligible.length > 0) {
+          nextClueGiver = rightEligible[0];
           const pos = Math.max(0, rightTeamPlayers.indexOf(nextClueGiver));
           nextRightRotationIndex = rightTeamPlayers.length
             ? (pos + 1) % rightTeamPlayers.length
             : 0;
+        } else {
+          // Fallback to previous behavior if no team-based eligible players are found
+          nextClueGiver = eligiblePlayers[0];
+          const chosenTeam = gameState.players[nextClueGiver]?.team;
+          if (chosenTeam === Team.Left) {
+            const pos = Math.max(0, leftTeamPlayers.indexOf(nextClueGiver));
+            nextLeftRotationIndex = leftTeamPlayers.length
+              ? (pos + 1) % leftTeamPlayers.length
+              : 0;
+          } else if (chosenTeam === Team.Right) {
+            const pos = Math.max(0, rightTeamPlayers.indexOf(nextClueGiver));
+            nextRightRotationIndex = rightTeamPlayers.length
+              ? (pos + 1) % rightTeamPlayers.length
+              : 0;
+          }
         }
       }
     } else {

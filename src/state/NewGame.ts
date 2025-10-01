@@ -8,20 +8,26 @@ export function NewTeamGame(
   gameState: GameState,
   tSpectrumCards: TFunction<"spectrum-cards">
 ): Partial<GameState> {
+  // Determine the first clue giver using NewRound, then award 1 point to the
+  // opposite team (the second team to guess).
+  const nextRound = NewRound(startPlayer, gameState, tSpectrumCards);
+
   const initialScores: Partial<GameState> = {
     leftScore: 0,
     rightScore: 0,
   };
 
-  const playerTeam = players[startPlayer].team;
-  if (playerTeam === Team.Left) {
+  const firstClueGiverId = (nextRound.clueGiver as string) || "";
+  const firstClueGiverTeam = players[firstClueGiverId]?.team;
+
+  if (firstClueGiverTeam === Team.Left) {
     initialScores.rightScore = 1;
-  } else {
+  } else if (firstClueGiverTeam === Team.Right) {
     initialScores.leftScore = 1;
   }
 
   return {
-    ...NewRound(startPlayer, gameState, tSpectrumCards),
+    ...nextRound,
     ...initialScores,
     previousTurn: null,
     gameType: GameType.Teams,
