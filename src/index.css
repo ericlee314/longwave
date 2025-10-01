@@ -16,3 +16,21 @@ ul {
   margin: 0;
   padding-inline-start: 16px;
 }
+
+/* Light border glow to indicate active team */
+body.left-acting::before,
+body.right-acting::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 6px rgba(0, 0, 0, 0); /* base to reserve space */
+}
+
+body.left-acting::before {
+  box-shadow: inset 0 0 0 8px rgba(255, 0, 0, 0.25);
+}
+
+body.right-acting::before {
+  box-shadow: inset 0 0 0 8px rgba(0, 128, 255, 0.25);
+}

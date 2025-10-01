@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStorageBackedState } from "../hooks/useStorageBackedState";
 import { useNetworkBackedGameState } from "../hooks/useNetworkBackedGameState";
 import { InputName } from "./InputName";
@@ -10,6 +10,7 @@ import { BuildGameModel } from "../../state/BuildGameModel";
 import { RoomIdHeader } from "../common/RoomIdHeader";
 import { FakeRooms } from "./FakeRooms";
 import { useTranslation } from "react-i18next";
+import { GameType, RoundPhase, Team } from "../../state/GameState";
 
 export function GameRoom() {
   const { roomId } = useParams<{ roomId: string }>();
@@ -31,6 +32,37 @@ export function GameRoom() {
   );
 
   const cardsTranslation = useTranslation("spectrum-cards");
+
+  // Toggle page border based on which team is currently acting
+  useEffect(() => {
+    const body = document.body;
+    const clear = () => body.classList.remove("left-acting", "right-acting");
+    clear();
+    try {
+      if (gameState.gameType !== GameType.Teams) return;
+      const phase = gameState.roundPhase;
+      const isActingPhase =
+        phase === RoundPhase.GiveClue ||
+        phase === RoundPhase.MakeGuess ||
+        phase === RoundPhase.CounterGuess;
+      if (!isActingPhase) return;
+      const clueGiverId = gameState.clueGiver;
+      const clueGiver = gameState.players[clueGiverId];
+      if (!clueGiver) return;
+      let actingTeam = clueGiver.team;
+      if (phase === RoundPhase.CounterGuess) {
+        actingTeam = actingTeam === Team.Left ? Team.Right : actingTeam === Team.Right ? Team.Left : Team.Unset;
+      }
+      if (actingTeam === Team.Left) {
+        body.classList.add("left-acting");
+      } else if (actingTeam === Team.Right) {
+        body.classList.add("right-acting");
+      }
+    } finally {
+      // no-op
+    }
+    return clear;
+  }, [gameState]);
 
   if (
     gameState.deckLanguage !== null &&
@@ -75,6 +107,8 @@ export function GameRoom() {
   if (!gameState?.players?.[playerId]) {
     return null;
   }
+
+  
 
   return (
     <GameModelContext.Provider value={gameModel}>
