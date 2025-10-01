@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GameType, RoundPhase, TeamName } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
-import { CenteredColumn, CenteredRow } from "../common/LayoutElements";
+import { CenteredColumn } from "../common/LayoutElements";
 import { Button } from "../common/Button";
 import { GameModelContext } from "../../state/GameModelContext";
 import { RecordEvent } from "../../TrackEvent";
@@ -65,16 +65,7 @@ export function MakeGuess() {
 
   return (
     <div>
-      <CenteredRow style={{ gap: 8 }}>
-        <Button
-          text="←"
-          onClick={() => {
-            const next = Math.max(0, gameState.guess - 1);
-            setGameState({ guess: next });
-            setConfirming(false);
-          }}
-          disabled={gameState.guess <= 0}
-        />
+      <div style={{ position: "relative" }}>
         <Spectrum
           spectrumCard={spectrumCard}
           handleValue={gameState.guess}
@@ -85,16 +76,45 @@ export function MakeGuess() {
             setConfirming(false);
           }}
         />
-        <Button
-          text="→"
-          onClick={() => {
-            const next = Math.min(20, gameState.guess + 1);
-            setGameState({ guess: next });
-            setConfirming(false);
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 8,
+            transform: "translateY(-50%)",
+            zIndex: 1,
           }}
-          disabled={gameState.guess >= 20}
-        />
-      </CenteredRow>
+        >
+          <Button
+            text="←"
+            onClick={() => {
+              const next = Math.max(0, gameState.guess - 1);
+              setGameState({ guess: next });
+              setConfirming(false);
+            }}
+            disabled={gameState.guess <= 0}
+          />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: 8,
+            transform: "translateY(-50%)",
+            zIndex: 1,
+          }}
+        >
+          <Button
+            text="→"
+            onClick={() => {
+              const next = Math.min(20, gameState.guess + 1);
+              setGameState({ guess: next });
+              setConfirming(false);
+            }}
+            disabled={gameState.guess >= 20}
+          />
+        </div>
+      </div>
       <CenteredColumn>
         <div>
           {t("makeguess.players_clue", { givername: clueGiver.name })}:{" "}
