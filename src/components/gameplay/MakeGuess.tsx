@@ -65,6 +65,20 @@ export function MakeGuess() {
 
   return (
     <div>
+      <div
+        style={{
+          background: "#e2f0ff",
+          border: "1px solid #b6daff",
+          color: "#084298",
+          padding: "12px 16px",
+          borderRadius: 4,
+          margin: "12px 0",
+          fontWeight: 600,
+          textAlign: "center",
+        }}
+      >
+        {t("makeguess.helper") as string}
+      </div>
       <div style={{ position: "relative" }}>
         <Spectrum
           spectrumCard={spectrumCard}
