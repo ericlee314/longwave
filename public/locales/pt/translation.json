@@ -80,7 +80,8 @@
     "last_card": "Última carta!",
     "card_remaining": "Cartas restantes",
     "coop_score": "Pontuação cooperativa",
-    "points": "PONTOS"
+    "points": "PONTOS",
+    "point": "PONTO"
   },
   "setupgame": {
     "standard_game": "Padrão (Times): 4+ Jogadores",

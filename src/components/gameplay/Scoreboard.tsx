@@ -118,7 +118,7 @@ function TeamColumn(props: { team: Team; score: number }) {
         <span style={{ fontWeight: 700 }}>
           <AnimatableScore score={props.score} />
         </span>
-        {t("scoreboard.points") as string}
+        {props.score === 1 ? (t("scoreboard.point") as string) : (t("scoreboard.points") as string)}
         <button
           type="button"
           className="gm-adjust"
