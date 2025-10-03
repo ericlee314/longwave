@@ -183,9 +183,10 @@ function AnimatableScore(props: { score: number }) {
 // (helper removed; inline mapping used to avoid prop type conflicts for 'key')
 
 function PlayerRow(props: { playerId: string }) {
-  const { gameState, setGameState } = useContext(GameModelContext);
+  const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
   const player = gameState.players[props.playerId];
   const [hovered, setHovered] = useState(false);
+  const isGameMaster = localPlayer.id === gameState.creatorId;
 
   const iconContainerStyle = {
     marginLeft: 4,
@@ -199,13 +200,14 @@ function PlayerRow(props: { playerId: string }) {
       onMouseLeave={() => setHovered(false)}
     >
       {player.name}
-      {hovered ? (
+      {hovered && isGameMaster ? (
         <div
           style={{
             ...iconContainerStyle,
-            cursor: "pointer",
+            cursor: isGameMaster ? "pointer" : "default",
           }}
           onClick={() => {
+            if (!isGameMaster) return;
             delete gameState.players[props.playerId];
             setGameState(gameState);
           }}
