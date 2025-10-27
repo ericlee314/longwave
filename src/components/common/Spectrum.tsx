@@ -93,7 +93,7 @@ export function Spectrum(props: {
   // Build target spectrum segments (2, 3, 4 points) around targetValue
   const targetSegments = useMemo(() => {
     if (props.targetValue === undefined) {
-      return [] as Array<{ start: number; end: number; color: string }>;
+      return [] as Array<{ start: number; end: number; color: string; points: number }>;
     }
 
     const center = props.targetValue;
@@ -112,17 +112,17 @@ export function Spectrum(props: {
       four: "#E53935", // 4 points (center)
     };
 
-    const segments: Array<{ start: number; end: number; color: string }> = [];
+    const segments: Array<{ start: number; end: number; color: string; points: number }> = [];
     // Left outer (2 points)
-    segments.push({ start: boundaries[0], end: boundaries[1], color: colors.two });
+    segments.push({ start: boundaries[0], end: boundaries[1], color: colors.two, points: 2 });
     // Left middle (3 points)
-    segments.push({ start: boundaries[1], end: boundaries[2], color: colors.three });
+    segments.push({ start: boundaries[1], end: boundaries[2], color: colors.three, points: 3 });
     // Center (4 points)
-    segments.push({ start: boundaries[2], end: boundaries[3], color: colors.four });
+    segments.push({ start: boundaries[2], end: boundaries[3], color: colors.four, points: 4 });
     // Right middle (3 points)
-    segments.push({ start: boundaries[3], end: boundaries[4], color: colors.three });
+    segments.push({ start: boundaries[3], end: boundaries[4], color: colors.three, points: 3 });
     // Right outer (2 points)
-    segments.push({ start: boundaries[4], end: boundaries[5], color: colors.two });
+    segments.push({ start: boundaries[4], end: boundaries[5], color: colors.two, points: 2 });
 
     return segments
       .filter((s) => s.end > s.start)
@@ -130,6 +130,7 @@ export function Spectrum(props: {
         start: angleForValue(s.start),
         end: angleForValue(s.end),
         color: s.color,
+        points: s.points,
       }));
   }, [props.targetValue]);
 
@@ -185,7 +186,7 @@ export function Spectrum(props: {
               opacity={0.35}
             />
 
-            {/* Target spectrum segments */}
+            {/* Target spectrum segments */
             {targetSegments.map((seg: { start: number; end: number; color: string }, idx: number) => (
               <path
                 key={`seg-${idx}`}
@@ -197,6 +198,34 @@ export function Spectrum(props: {
                 opacity={0.9}
               />
             ))}
+
+            {/* Point labels over segments */}
+            {targetSegments.map(
+              (
+                seg: { start: number; end: number; color: string; points: number },
+                idx: number
+              ) => {
+                const midAngle = (seg.start + seg.end) / 2;
+                // Position the label roughly centered on the stroke
+                const labelPos = polarToCartesian(midAngle, radius);
+                const textColor = GetContrastingText(seg.color);
+                return (
+                  <text
+                    key={`seg-label-${idx}`}
+                    x={labelPos.x}
+                    y={labelPos.y}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fontWeight="bold"
+                    fontSize={14}
+                    fill={textColor}
+                    style={{ pointerEvents: "none" }}
+                  >
+                    {seg.points}
+                  </text>
+                );
+              }
+            )}
 
             {/* Dial center */}
             <circle cx={centerX} cy={centerY} r={18} fill="#D32F2F" />
