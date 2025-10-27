@@ -76,7 +76,8 @@
     "share_game_url": "Share this URL with them: {{game_url}}",
     "guess_for_team": "Submit Guess for {{teamname}}",
     "confirm_guess_for_team": "Confirm Guess for {{teamname}}",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "undo_clue": "Undo clue"
   },
   "previousturnresult": {
     "previous_game": "Previous Turn",

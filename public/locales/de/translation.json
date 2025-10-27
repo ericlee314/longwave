@@ -73,7 +73,8 @@
         "share_game_url": "Teile diese Adresse mit ihnen: {{game_url}}",
         "guess_for_team": "Rate für das Team {{teamname}}",
         "confirm_guess_for_team": "Bestätigen: Rate für {{teamname}}",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "undo_clue": "Hinweis zurücknehmen"
     },
     "previousturnresult": {
         "previous_game": "Vorheriges Spiel",

@@ -69,7 +69,8 @@
     "share_game_url": "Compartilhe esse endereço: {{game_url}}",
     "guess_for_team": "Enviar resposta por {{teamname}}",
     "confirm_guess_for_team": "Confirmar resposta por {{teamname}}",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "undo_clue": "Desfazer dica"
   },
   "previousturnresult": {
     "previous_game": "Turno Anterior",
