@@ -186,7 +186,7 @@ export function Spectrum(props: {
               opacity={0.35}
             />
 
-            {/* Target spectrum segments */
+            {/* Target spectrum segments */}
             {targetSegments.map((seg: { start: number; end: number; color: string }, idx: number) => (
               <path
                 key={`seg-${idx}`}
