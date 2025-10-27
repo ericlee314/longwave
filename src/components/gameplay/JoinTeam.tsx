@@ -22,14 +22,22 @@ export function JoinTeam() {
   );
 
   const joinTeam = (team: Team) => {
+    // Rebuild players map so the joining player's entry is appended last.
+    // This guarantees they appear at the bottom of their team's list and
+    // preserves predictable indexing for rotations that rely on order.
+    const newPlayers: typeof gameState.players = {};
+    const playerIds = Object.keys(gameState.players);
+    for (const pid of playerIds) {
+      if (pid === localPlayer.id) continue;
+      newPlayers[pid] = gameState.players[pid];
+    }
+    newPlayers[localPlayer.id] = {
+      ...localPlayer,
+      team,
+    };
+
     setGameState({
-      players: {
-        ...gameState.players,
-        [localPlayer.id]: {
-          ...localPlayer,
-          team,
-        },
-      },
+      players: newPlayers,
     });
   };
 
