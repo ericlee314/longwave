@@ -73,7 +73,8 @@
     "share_game_url": "Comparte esta URL con ellos: {{game_url}}",
     "guess_for_team": "Enviar la respuesta del {{teamname}}",
     "confirm_guess_for_team": "Confirmar respuesta del {{teamname}}",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "undo_clue": "Deshacer pista"
   },
   "previousturnresult": {
     "previous_game": "Turno anterior",

@@ -69,7 +69,8 @@
     "share_game_url": "Partager cette URL avec eux : {{game_url}}",
     "guess_for_team": "Envoyer votre déduction pour {{teamname}}",
     "confirm_guess_for_team": "Confirmer la déduction pour {{teamname}}",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "undo_clue": "Annuler l'indice"
   },
   "previousturnresult": {
     "previous_game": "Tour précédent",

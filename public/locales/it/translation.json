@@ -73,7 +73,8 @@
     "share_game_url": "Condividi questo URL con loro: {{game_url}}",
     "guess_for_team": "Conferma ipotesi per la squadra {{teamname}}",
     "confirm_guess_for_team": "Conferma definitiva per {{teamname}}",
-    "cancel": "Annulla"
+    "cancel": "Annulla",
+    "undo_clue": "Annulla indizio"
   },
   "previousturnresult": {
     "previous_game": "Turno precedente",

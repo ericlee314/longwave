@@ -6,6 +6,7 @@ import { Button } from "../common/Button";
 import { GameModelContext } from "../../state/GameModelContext";
 import { RecordEvent } from "../../TrackEvent";
 import { ScoreCoopRound } from "../../state/ScoreRound";
+import { RandomSpectrumTarget } from "../../state/RandomSpectrumTarget";
 
 import { useTranslation } from "react-i18next";
 
@@ -29,6 +30,15 @@ export function MakeGuess() {
   const guessingTeamString = TeamName(clueGiver.team, t, gameState);
 
   if (notMyTurn) {
+    const undoClue = () => {
+      setGameState({
+        roundPhase: RoundPhase.GiveClue,
+        deckIndex: gameState.deckIndex + 1,
+        spectrumTarget: RandomSpectrumTarget(),
+        clue: "",
+        guess: 10,
+      });
+    };
     return (
       <div>
         <Spectrum spectrumCard={spectrumCard} guessingValue={gameState.guess} />
@@ -42,6 +52,14 @@ export function MakeGuess() {
               guessingteam: guessingTeamString,
             })}
           </div>
+          {isGameMaster && (
+            <div style={{ alignSelf: "flex-end", marginTop: 8 }}>
+              <Button
+                text={t("makeguess.undo_clue") as string}
+                onClick={undoClue}
+              />
+            </div>
+          )}
           {Object.keys(gameState.players).length < 2 && (
             <div
               style={{
