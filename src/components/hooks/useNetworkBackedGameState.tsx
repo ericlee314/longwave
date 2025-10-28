@@ -40,6 +40,9 @@ export function useNetworkBackedGameState(
           name: playerName,
           team: Team.Unset,
         };
+        // Ensure order arrays exist
+        completeGameState.leftTeamOrder = completeGameState.leftTeamOrder || [];
+        completeGameState.rightTeamOrder = completeGameState.rightTeamOrder || [];
         dbRef.set(completeGameState);
         return;
       }

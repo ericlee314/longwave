@@ -33,12 +33,14 @@ export function GiveClue() {
     }
 
     const playerIds = Object.keys(gameState.players);
-    const leftTeamPlayers = playerIds.filter(
-      (pid) => gameState.players[pid].team === Team.Left
-    );
-    const rightTeamPlayers = playerIds.filter(
-      (pid) => gameState.players[pid].team === Team.Right
-    );
+    const leftTeamPlayers = (gameState.leftTeamOrder && gameState.leftTeamOrder.length
+      ? gameState.leftTeamOrder
+      : playerIds
+    ).filter((pid) => gameState.players[pid].team === Team.Left);
+    const rightTeamPlayers = (gameState.rightTeamOrder && gameState.rightTeamOrder.length
+      ? gameState.rightTeamOrder
+      : playerIds
+    ).filter((pid) => gameState.players[pid].team === Team.Right);
 
     let nextClueGiverId = clueGiver.id;
     let nextLeftRotationIndex = gameState.leftRotationIndex || 0;

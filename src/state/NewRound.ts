@@ -34,12 +34,14 @@ export function NewRound(
     return true;
   });
 
-  const leftTeamPlayers = playerIds.filter(
-    (pid) => gameState.players[pid].team === Team.Left
-  );
-  const rightTeamPlayers = playerIds.filter(
-    (pid) => gameState.players[pid].team === Team.Right
-  );
+  const leftTeamPlayers = (gameState.leftTeamOrder && gameState.leftTeamOrder.length
+    ? gameState.leftTeamOrder
+    : playerIds
+  ).filter((pid) => gameState.players[pid].team === Team.Left);
+  const rightTeamPlayers = (gameState.rightTeamOrder && gameState.rightTeamOrder.length
+    ? gameState.rightTeamOrder
+    : playerIds
+  ).filter((pid) => gameState.players[pid].team === Team.Right);
 
   const hasPreviousClueGiver = gameModel.clueGiver !== null;
 

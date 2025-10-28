@@ -21,8 +21,14 @@ export function Scoreboard() {
     alignItems: "center",
   };
 
-  // Maintain consistent player ordering everywhere by deriving ordered keys once
-  const orderedPlayerIds = Object.keys(gameState.players);
+  // Maintain consistent player ordering using explicit team orders if available
+  const leftBase = new Set(gameState.leftTeamOrder || []);
+  const rightBase = new Set(gameState.rightTeamOrder || []);
+  const orderedPlayerIds = [
+    ...[...(gameState.leftTeamOrder || [])].filter((pid) => gameState.players[pid]?.team === Team.Left),
+    ...[...(gameState.rightTeamOrder || [])].filter((pid) => gameState.players[pid]?.team === Team.Right),
+    ...Object.keys(gameState.players).filter((pid) => !leftBase.has(pid) && !rightBase.has(pid)),
+  ];
 
   if (gameState.gameType === GameType.Freeplay) {
     return (
@@ -79,7 +85,9 @@ function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string
   const { t } = useTranslation();
   const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
 
-  const members = props.orderedPlayerIds.filter(
+  const explicitOrder = props.team === Team.Left ? gameState.leftTeamOrder : gameState.rightTeamOrder;
+  const explicitFiltered = (explicitOrder || []).filter((pid) => gameState.players[pid]?.team === props.team);
+  const members = (explicitFiltered.length ? explicitFiltered : props.orderedPlayerIds).filter(
     (playerId) => gameState.players[playerId].team === props.team
   );
 
@@ -219,8 +227,11 @@ function PlayerRow(props: { playerId: string }) {
           }}
           onClick={() => {
             if (!isGameMaster) return;
-            delete gameState.players[props.playerId];
-            setGameState(gameState);
+            const next = { ...gameState };
+            delete next.players[props.playerId];
+            next.leftTeamOrder = (next.leftTeamOrder || []).filter((pid) => pid !== props.playerId);
+            next.rightTeamOrder = (next.rightTeamOrder || []).filter((pid) => pid !== props.playerId);
+            setGameState(next);
           }}
         >
           <FontAwesomeIcon icon={faTimesCircle} />

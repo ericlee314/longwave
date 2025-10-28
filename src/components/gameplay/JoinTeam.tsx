@@ -14,32 +14,52 @@ export function JoinTeam() {
   const cardsTranslation = useTranslation("spectrum-cards");
   const { gameState, localPlayer, setGameState } = useContext(GameModelContext);
 
-  // Derive ordered player IDs once, then filter per team to keep UI ordering consistent
-  const orderedPlayerIds = Object.keys(gameState.players);
-  const leftTeam = orderedPlayerIds.filter(
-    (playerId) => gameState.players[playerId].team === Team.Left
-  );
-  const rightTeam = orderedPlayerIds.filter(
-    (playerId) => gameState.players[playerId].team === Team.Right
-  );
+  // Build team lists: respect explicit order arrays, then append any missing members
+  const leftTeamBase = new Set(gameState.leftTeamOrder || []);
+  const rightTeamBase = new Set(gameState.rightTeamOrder || []);
+  const leftTeamMissing: string[] = [];
+  const rightTeamMissing: string[] = [];
+  for (const pid of Object.keys(gameState.players)) {
+    const p = gameState.players[pid];
+    if (p?.team === Team.Left && !leftTeamBase.has(pid)) leftTeamMissing.push(pid);
+    if (p?.team === Team.Right && !rightTeamBase.has(pid)) rightTeamMissing.push(pid);
+  }
+  const leftTeam: string[] = [
+    ...[...leftTeamBase].filter((pid) => gameState.players[pid]?.team === Team.Left),
+    ...leftTeamMissing,
+  ];
+  const rightTeam: string[] = [
+    ...[...rightTeamBase].filter((pid) => gameState.players[pid]?.team === Team.Right),
+    ...rightTeamMissing,
+  ];
 
   const joinTeam = (team: Team) => {
-    // Rebuild players map so the joining player's entry is appended last.
-    // This guarantees they appear at the bottom of their team's list and
-    // preserves predictable indexing for rotations that rely on order.
-    const newPlayers: typeof gameState.players = {};
-    const playerIds = Object.keys(gameState.players);
-    for (const pid of playerIds) {
-      if (pid === localPlayer.id) continue;
-      newPlayers[pid] = gameState.players[pid];
-    }
-    newPlayers[localPlayer.id] = {
-      ...localPlayer,
-      team,
+    // Update player team assignment
+    const nextPlayers = {
+      ...gameState.players,
+      [localPlayer.id]: {
+        ...localPlayer,
+        team,
+      },
     };
 
+    // Update explicit per-team order arrays to append the joining player at the bottom
+    const leftTeamOrder = [...(gameState.leftTeamOrder || [])].filter(
+      (pid) => pid !== localPlayer.id
+    );
+    const rightTeamOrder = [...(gameState.rightTeamOrder || [])].filter(
+      (pid) => pid !== localPlayer.id
+    );
+    if (team === Team.Left) {
+      leftTeamOrder.push(localPlayer.id);
+    } else if (team === Team.Right) {
+      rightTeamOrder.push(localPlayer.id);
+    }
+
     setGameState({
-      players: newPlayers,
+      players: nextPlayers,
+      leftTeamOrder,
+      rightTeamOrder,
     });
   };
 

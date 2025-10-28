@@ -95,6 +95,8 @@ function NextTurnOrEndGame() {
           creatorId: gameState.creatorId,
           leftTeamName: gameState.leftTeamName,
           rightTeamName: gameState.rightTeamName,
+          leftTeamOrder: gameState.leftTeamOrder,
+          rightTeamOrder: gameState.rightTeamOrder,
         });
       }}
     />
@@ -183,12 +185,14 @@ function NextTurnOrEndGame() {
     const eligiblePlayers = playerIds.filter(
       (pid) => gameState.players[pid].team !== Team.Unset && pid !== gameState.creatorId
     );
-    const leftTeamPlayers = playerIds.filter(
-      (pid) => gameState.players[pid].team === Team.Left
-    );
-    const rightTeamPlayers = playerIds.filter(
-      (pid) => gameState.players[pid].team === Team.Right
-    );
+    const leftTeamPlayers = (gameState.leftTeamOrder && gameState.leftTeamOrder.length
+      ? gameState.leftTeamOrder
+      : playerIds
+    ).filter((pid) => gameState.players[pid].team === Team.Left);
+    const rightTeamPlayers = (gameState.rightTeamOrder && gameState.rightTeamOrder.length
+      ? gameState.rightTeamOrder
+      : playerIds
+    ).filter((pid) => gameState.players[pid].team === Team.Right);
 
     let nextId: string | null = null;
     if (nextTeam === Team.Left && leftTeamPlayers.length > 0) {
