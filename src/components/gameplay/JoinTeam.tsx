@@ -14,10 +14,12 @@ export function JoinTeam() {
   const cardsTranslation = useTranslation("spectrum-cards");
   const { gameState, localPlayer, setGameState } = useContext(GameModelContext);
 
-  const leftTeam = Object.keys(gameState.players).filter(
+  // Derive ordered player IDs once, then filter per team to keep UI ordering consistent
+  const orderedPlayerIds = Object.keys(gameState.players);
+  const leftTeam = orderedPlayerIds.filter(
     (playerId) => gameState.players[playerId].team === Team.Left
   );
-  const rightTeam = Object.keys(gameState.players).filter(
+  const rightTeam = orderedPlayerIds.filter(
     (playerId) => gameState.players[playerId].team === Team.Right
   );
 

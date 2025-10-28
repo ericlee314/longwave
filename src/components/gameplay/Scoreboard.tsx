@@ -21,12 +21,15 @@ export function Scoreboard() {
     alignItems: "center",
   };
 
+  // Maintain consistent player ordering everywhere by deriving ordered keys once
+  const orderedPlayerIds = Object.keys(gameState.players);
+
   if (gameState.gameType === GameType.Freeplay) {
     return (
       <CenteredColumn style={style}>
         <em>{t("scoreboard.free_play") as string}</em>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map((playerId) => (
+          {orderedPlayerIds.map((playerId) => (
             <PlayerRow key={playerId} playerId={playerId} />
           ))}
         </CenteredRow>
@@ -48,7 +51,7 @@ export function Scoreboard() {
             : t("scoreboard.card_remaining") + ": " + cardsRemaining}
         </div>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map((playerId) => (
+          {orderedPlayerIds.map((playerId) => (
             <PlayerRow key={playerId} playerId={playerId} />
           ))}
         </CenteredRow>
@@ -58,17 +61,25 @@ export function Scoreboard() {
 
   return (
     <CenteredRow style={style}>
-      <TeamColumn team={Team.Left} score={gameState.leftScore} />
-      <TeamColumn team={Team.Right} score={gameState.rightScore} />
+      <TeamColumn
+        team={Team.Left}
+        score={gameState.leftScore}
+        orderedPlayerIds={orderedPlayerIds}
+      />
+      <TeamColumn
+        team={Team.Right}
+        score={gameState.rightScore}
+        orderedPlayerIds={orderedPlayerIds}
+      />
     </CenteredRow>
   );
 }
 
-function TeamColumn(props: { team: Team; score: number }) {
+function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string[] }) {
   const { t } = useTranslation();
   const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
 
-  const members = Object.keys(gameState.players).filter(
+  const members = props.orderedPlayerIds.filter(
     (playerId) => gameState.players[playerId].team === props.team
   );
 
