@@ -206,9 +206,9 @@ export function Spectrum(props: {
                 idx: number
               ) => {
                 const midAngle = (seg.start + seg.end) / 2;
-                // Position the label roughly centered on the stroke
-                const labelPos = polarToCartesian(midAngle, radius);
-                const textColor = GetContrastingText(seg.color);
+                // Place label just outside the arc stroke on the outer edge
+                const labelOffset = 18; // half stroke (11) + extra margin
+                const labelPos = polarToCartesian(midAngle, radius + labelOffset);
                 return (
                   <text
                     key={`seg-label-${idx}`}
@@ -218,7 +218,7 @@ export function Spectrum(props: {
                     dominantBaseline="middle"
                     fontWeight="bold"
                     fontSize={14}
-                    fill={textColor}
+                    fill="#000"
                     style={{ pointerEvents: "none" }}
                   >
                     {seg.points}
