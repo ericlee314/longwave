@@ -21,12 +21,21 @@ export function Scoreboard() {
     alignItems: "center",
   };
 
+  // Maintain consistent player ordering using explicit team orders if available
+  const leftBase = new Set(gameState.leftTeamOrder || []);
+  const rightBase = new Set(gameState.rightTeamOrder || []);
+  const orderedPlayerIds = [
+    ...[...(gameState.leftTeamOrder || [])].filter((pid) => gameState.players[pid]?.team === Team.Left),
+    ...[...(gameState.rightTeamOrder || [])].filter((pid) => gameState.players[pid]?.team === Team.Right),
+    ...Object.keys(gameState.players).filter((pid) => !leftBase.has(pid) && !rightBase.has(pid)),
+  ];
+
   if (gameState.gameType === GameType.Freeplay) {
     return (
       <CenteredColumn style={style}>
         <em>{t("scoreboard.free_play") as string}</em>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map((playerId) => (
+          {orderedPlayerIds.map((playerId) => (
             <PlayerRow key={playerId} playerId={playerId} />
           ))}
         </CenteredRow>
@@ -48,7 +57,7 @@ export function Scoreboard() {
             : t("scoreboard.card_remaining") + ": " + cardsRemaining}
         </div>
         <CenteredRow style={{ flexWrap: "wrap" }}>
-          {Object.keys(gameState.players).map((playerId) => (
+          {orderedPlayerIds.map((playerId) => (
             <PlayerRow key={playerId} playerId={playerId} />
           ))}
         </CenteredRow>
@@ -58,17 +67,27 @@ export function Scoreboard() {
 
   return (
     <CenteredRow style={style}>
-      <TeamColumn team={Team.Left} score={gameState.leftScore} />
-      <TeamColumn team={Team.Right} score={gameState.rightScore} />
+      <TeamColumn
+        team={Team.Left}
+        score={gameState.leftScore}
+        orderedPlayerIds={orderedPlayerIds}
+      />
+      <TeamColumn
+        team={Team.Right}
+        score={gameState.rightScore}
+        orderedPlayerIds={orderedPlayerIds}
+      />
     </CenteredRow>
   );
 }
 
-function TeamColumn(props: { team: Team; score: number }) {
+function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string[] }) {
   const { t } = useTranslation();
   const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
 
-  const members = Object.keys(gameState.players).filter(
+  const explicitOrder = props.team === Team.Left ? gameState.leftTeamOrder : gameState.rightTeamOrder;
+  const explicitFiltered = (explicitOrder || []).filter((pid) => gameState.players[pid]?.team === props.team);
+  const members = (explicitFiltered.length ? explicitFiltered : props.orderedPlayerIds).filter(
     (playerId) => gameState.players[playerId].team === props.team
   );
 
@@ -208,8 +227,11 @@ function PlayerRow(props: { playerId: string }) {
           }}
           onClick={() => {
             if (!isGameMaster) return;
-            delete gameState.players[props.playerId];
-            setGameState(gameState);
+            const next = { ...gameState };
+            delete next.players[props.playerId];
+            next.leftTeamOrder = (next.leftTeamOrder || []).filter((pid) => pid !== props.playerId);
+            next.rightTeamOrder = (next.rightTeamOrder || []).filter((pid) => pid !== props.playerId);
+            setGameState(next);
           }}
         >
           <FontAwesomeIcon icon={faTimesCircle} />

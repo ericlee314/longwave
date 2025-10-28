@@ -86,6 +86,9 @@ export interface GameState {
   // Rotation indices for selecting the next clue giver within each team
   leftRotationIndex: number;
   rightRotationIndex: number;
+  // Explicit, stable ordering of players within each team
+  leftTeamOrder: string[];
+  rightTeamOrder: string[];
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -112,5 +115,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     rightTeamName: "",
     leftRotationIndex: 0,
     rightRotationIndex: 0,
+    leftTeamOrder: [],
+    rightTeamOrder: [],
   };
 }

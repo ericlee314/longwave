@@ -14,22 +14,54 @@ export function JoinTeam() {
   const cardsTranslation = useTranslation("spectrum-cards");
   const { gameState, localPlayer, setGameState } = useContext(GameModelContext);
 
-  const leftTeam = Object.keys(gameState.players).filter(
-    (playerId) => gameState.players[playerId].team === Team.Left
-  );
-  const rightTeam = Object.keys(gameState.players).filter(
-    (playerId) => gameState.players[playerId].team === Team.Right
-  );
+  // Build team lists: respect explicit order arrays, then append any missing members
+  const leftTeamBase = new Set(gameState.leftTeamOrder || []);
+  const rightTeamBase = new Set(gameState.rightTeamOrder || []);
+  const leftTeamMissing: string[] = [];
+  const rightTeamMissing: string[] = [];
+  for (const pid of Object.keys(gameState.players)) {
+    const p = gameState.players[pid];
+    if (p?.team === Team.Left && !leftTeamBase.has(pid)) leftTeamMissing.push(pid);
+    if (p?.team === Team.Right && !rightTeamBase.has(pid)) rightTeamMissing.push(pid);
+  }
+  const leftBaseArray = Array.from(leftTeamBase);
+  const rightBaseArray = Array.from(rightTeamBase);
+  const leftTeam: string[] = [
+    ...leftBaseArray.filter((pid) => gameState.players[pid]?.team === Team.Left),
+    ...leftTeamMissing,
+  ];
+  const rightTeam: string[] = [
+    ...rightBaseArray.filter((pid) => gameState.players[pid]?.team === Team.Right),
+    ...rightTeamMissing,
+  ];
 
   const joinTeam = (team: Team) => {
-    setGameState({
-      players: {
-        ...gameState.players,
-        [localPlayer.id]: {
-          ...localPlayer,
-          team,
-        },
+    // Update player team assignment
+    const nextPlayers = {
+      ...gameState.players,
+      [localPlayer.id]: {
+        ...localPlayer,
+        team,
       },
+    };
+
+    // Update explicit per-team order arrays to append the joining player at the bottom
+    const leftTeamOrder = [...(gameState.leftTeamOrder || [])].filter(
+      (pid) => pid !== localPlayer.id
+    );
+    const rightTeamOrder = [...(gameState.rightTeamOrder || [])].filter(
+      (pid) => pid !== localPlayer.id
+    );
+    if (team === Team.Left) {
+      leftTeamOrder.push(localPlayer.id);
+    } else if (team === Team.Right) {
+      rightTeamOrder.push(localPlayer.id);
+    }
+
+    setGameState({
+      players: nextPlayers,
+      leftTeamOrder,
+      rightTeamOrder,
     });
   };
 
