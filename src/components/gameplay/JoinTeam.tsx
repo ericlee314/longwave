@@ -24,12 +24,14 @@ export function JoinTeam() {
     if (p?.team === Team.Left && !leftTeamBase.has(pid)) leftTeamMissing.push(pid);
     if (p?.team === Team.Right && !rightTeamBase.has(pid)) rightTeamMissing.push(pid);
   }
+  const leftBaseArray = Array.from(leftTeamBase);
+  const rightBaseArray = Array.from(rightTeamBase);
   const leftTeam: string[] = [
-    ...[...leftTeamBase].filter((pid) => gameState.players[pid]?.team === Team.Left),
+    ...leftBaseArray.filter((pid) => gameState.players[pid]?.team === Team.Left),
     ...leftTeamMissing,
   ];
   const rightTeam: string[] = [
-    ...[...rightTeamBase].filter((pid) => gameState.players[pid]?.team === Team.Right),
+    ...rightBaseArray.filter((pid) => gameState.players[pid]?.team === Team.Right),
     ...rightTeamMissing,
   ];
 
