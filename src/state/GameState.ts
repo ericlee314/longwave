@@ -2,6 +2,8 @@ import { RandomSpectrumTarget } from "./RandomSpectrumTarget";
 import { RandomFourCharacterString } from "./RandomFourCharacterString";
 import { TFunction } from "i18next";
 
+export const DEFAULT_POINTS_TO_WIN = 15;
+
 export enum RoundPhase {
   SetupGame,
   PickTeams,
@@ -83,6 +85,7 @@ export interface GameState {
   creatorId: string;
   leftTeamName: string;
   rightTeamName: string;
+  pointsToWin: number;
   // Rotation indices for selecting the next clue giver within each team
   leftRotationIndex: number;
   rightRotationIndex: number;
@@ -91,7 +94,7 @@ export interface GameState {
   rightTeamOrder: string[];
 }
 
-export function InitialGameState(deckLanguage: string): GameState {
+export function InitialGameState(deckLanguage: string = "en"): GameState {
   return {
     gameType: GameType.Teams,
     roundPhase: RoundPhase.SetupGame,
@@ -113,6 +116,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     creatorId: "",
     leftTeamName: "",
     rightTeamName: "",
+    pointsToWin: DEFAULT_POINTS_TO_WIN,
     leftRotationIndex: 0,
     rightRotationIndex: 0,
     leftTeamOrder: [],

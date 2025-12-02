@@ -46,6 +46,8 @@ test("Assigns player to the selected team", async () => {
         team: Team.Left,
       },
     },
+    leftTeamOrder: ["player1"],
+    rightTeamOrder: [],
   });
 });
 

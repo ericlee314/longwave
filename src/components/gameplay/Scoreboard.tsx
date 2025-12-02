@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { GameType, Team, TeamName } from "../../state/GameState";
+import { DEFAULT_POINTS_TO_WIN, GameType, Team, TeamName } from "../../state/GameState";
 import { CenteredRow, CenteredColumn } from "../common/LayoutElements";
 import { GameModelContext } from "../../state/GameModelContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,12 +13,14 @@ import { useTranslation } from "react-i18next";
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
+  const pointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
 
   const style = {
     borderTop: "1px solid black",
     margin: 16,
     paddingTop: 16,
     alignItems: "center",
+    width: "100%",
   };
 
   // Maintain consistent player ordering using explicit team orders if available
@@ -66,18 +68,23 @@ export function Scoreboard() {
   }
 
   return (
-    <CenteredRow style={style}>
-      <TeamColumn
-        team={Team.Left}
-        score={gameState.leftScore}
-        orderedPlayerIds={orderedPlayerIds}
-      />
-      <TeamColumn
-        team={Team.Right}
-        score={gameState.rightScore}
-        orderedPlayerIds={orderedPlayerIds}
-      />
-    </CenteredRow>
+    <CenteredColumn style={style}>
+      <div style={{ fontSize: 14, color: "#555", marginBottom: 8 }}>
+        {t("scoreboard.playing_to", { points: pointsToWin }) as string}
+      </div>
+      <CenteredRow style={{ width: "100%" }}>
+        <TeamColumn
+          team={Team.Left}
+          score={gameState.leftScore}
+          orderedPlayerIds={orderedPlayerIds}
+        />
+        <TeamColumn
+          team={Team.Right}
+          score={gameState.rightScore}
+          orderedPlayerIds={orderedPlayerIds}
+        />
+      </CenteredRow>
+    </CenteredColumn>
   );
 }
 
@@ -97,8 +104,9 @@ function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string
     if (!isGameMaster || gameState.gameType !== GameType.Teams) return;
     const key = props.team === Team.Left ? "leftScore" : "rightScore";
     const current = (gameState as any)[key] as number;
-    // Clamp between 0 and 10
-    const next = Math.max(0, Math.min(10, current + delta));
+    const maxScore = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
+    // Clamp between 0 and the configured win condition
+    const next = Math.max(0, Math.min(maxScore, current + delta));
     if (next !== current) {
       setGameState({ [key]: next } as any);
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { CenteredRow, CenteredColumn } from "../common/LayoutElements";
-import { RoundPhase, Team, TeamName } from "../../state/GameState";
+import { DEFAULT_POINTS_TO_WIN, RoundPhase, Team, TeamName } from "../../state/GameState";
 import { Button } from "../common/Button";
 import { LongwaveAppTitle } from "../common/Title";
 import { useContext } from "react";
@@ -8,6 +8,9 @@ import { GameModelContext } from "../../state/GameModelContext";
 import { NewTeamGame } from "../../state/NewGame";
 
 import { useTranslation } from "react-i18next";
+
+const MIN_WIN_SCORE = 5;
+const MAX_WIN_SCORE = 30;
 
 export function JoinTeam() {
   const { t } = useTranslation();
@@ -78,6 +81,42 @@ export function JoinTeam() {
       )
     );
 
+  const currentPointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
+  const clampPoints = (value: number) =>
+    Math.max(MIN_WIN_SCORE, Math.min(MAX_WIN_SCORE, value));
+
+  const pointsSelector = isCreator ? (
+    <div style={{ margin: "8px 0", textAlign: "left" }}>
+      <label style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <span>{t("jointeam.points_to_win") as string}</span>
+        <input
+          type="number"
+          min={MIN_WIN_SCORE}
+          max={MAX_WIN_SCORE}
+          value={currentPointsToWin}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const raw = parseInt(e.target.value, 10);
+            if (Number.isNaN(raw)) {
+              setGameState({ pointsToWin: DEFAULT_POINTS_TO_WIN });
+              return;
+            }
+            setGameState({ pointsToWin: clampPoints(raw) });
+          }}
+        />
+      </label>
+      <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>
+        {t("jointeam.points_to_win_helper", {
+          min: MIN_WIN_SCORE,
+          max: MAX_WIN_SCORE,
+        }) as string}
+      </div>
+    </div>
+  ) : (
+    <div style={{ margin: "8px 0", color: "#666" }}>
+      {t("scoreboard.playing_to", { points: currentPointsToWin }) as string}
+    </div>
+  );
+
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
@@ -108,6 +147,7 @@ export function JoinTeam() {
           </div>
         </CenteredRow>
       )}
+      {pointsSelector}
       {isCreator && (
         <div style={{ maxWidth: 600, color: "#666", marginBottom: 8 }}>
           {t("jointeam.creator_is_observer")}

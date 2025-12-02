@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { ViewScore } from "./ViewScore";
-import { InitialGameState, Team, GameState } from "../../state/GameState";
+import { InitialGameState, Team, GameState, DEFAULT_POINTS_TO_WIN } from "../../state/GameState";
 import { TestContext } from "./TestContext";
 
 const onePlayerGame: GameState = {
@@ -125,10 +125,11 @@ test("Applies catchup rule", () => {
   expect(subject).toBeInTheDocument();
 });
 
-test("Ends game when one team has 10 points", () => {
+test("Ends game when one team reaches the configured score", () => {
   const gameState = {
     ...onePlayerGame,
     leftScore: 10,
+    pointsToWin: 10,
   };
 
   const component = render(
@@ -146,6 +147,7 @@ test("Does not end game when both teams have 10 points", () => {
     ...onePlayerGame,
     leftScore: 10,
     rightScore: 10,
+    pointsToWin: 10,
   };
 
   const component = render(
@@ -156,4 +158,20 @@ test("Does not end game when both teams have 10 points", () => {
 
   const subject = component.queryByText("LEFT BRAIN wins!");
   expect(subject).toBeNull();
+});
+
+test("Defaults to 15 points needed to win", () => {
+  const gameState = {
+    ...onePlayerGame,
+    leftScore: DEFAULT_POINTS_TO_WIN,
+  };
+
+  const component = render(
+    <TestContext gameState={gameState} playerId="playerId">
+      <ViewScore />
+    </TestContext>
+  );
+
+  const subject = component.getByText("LEFT BRAIN wins!");
+  expect(subject).toBeInTheDocument();
 });

@@ -64,7 +64,9 @@
     "right_team_name": "Nombre del equipo derecho",
     "start_game": "Empezar partida",
     "creator_is_observer": "Creaste esta sala y seguirás como Maestro del juego. No te unirás a un equipo ni enviarás pistas o respuestas.",
-    "only_creator_can_start": "Solo el maestro del juego puede iniciar la partida."
+    "only_creator_can_start": "Solo el maestro del juego puede iniciar la partida.",
+    "points_to_win": "Points needed to win",
+    "points_to_win_helper": "Choose a target between {{min}} and {{max}} points. Only the game master can change this."
   },
   "makeguess": {
     "players_clue": "Pista de {{givername}}",
@@ -86,7 +88,8 @@
     "card_remaining": "Tarjetas restantes",
     "coop_score": "Puntuación cooperativa",
     "points": "PUNTOS",
-    "point": "PUNTO"
+    "point": "PUNTO",
+    "playing_to": "Playing to {{points}} points"
   },
   "setupgame": {
     "standard_game": "Estándar (por equipos): 4+ jugadores",

@@ -64,7 +64,9 @@
         "right_team_name": "Name rechtes Team",
         "start_game": "Starte Spiel",
         "creator_is_observer": "Du hast diesen Raum erstellt und verfolgst als Spielleiter. Du trittst keinem Team bei und gibst keine Hinweise/Tipps ab.",
-        "only_creator_can_start": "Nur der Spielleiter kann das Spiel starten."
+        "only_creator_can_start": "Nur der Spielleiter kann das Spiel starten.",
+        "points_to_win": "Points needed to win",
+        "points_to_win_helper": "Choose a target between {{min}} and {{max}} points. Only the game master can change this."
     },
     "makeguess": {
         "players_clue": "{{givername}}'s Hinweis",
@@ -86,7 +88,8 @@
         "card_remaining": "Karten verbleiben",
         "coop_score": "Koop Punktestand",
         "points": "PUNKTE",
-        "point": "PUNKT"
+        "point": "PUNKT",
+        "playing_to": "Playing to {{points}} points"
     },
     "setupgame": {
         "standard_game": "Standard (Teams): 4+ Spieler",
