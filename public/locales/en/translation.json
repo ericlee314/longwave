@@ -66,7 +66,11 @@
     "right_team_name": "Right team name",
     "start_game": "Start game",
     "creator_is_observer": "You created this room and are following along as Game Master. You won't join a team or submit clues/guesses.",
-    "only_creator_can_start": "Only the game master can start the game."
+    "only_creator_can_start": "Only the game master can start the game.",
+    "points_to_win_label": "Play to",
+    "points_to_win_helper": "Choose how many points are needed to win the game.",
+    "points_option": "{{points}} points",
+    "points_to_win_display": "Playing to {{points}} points."
   },
   "makeguess": {
     "helper": "Coordinate with your team to guess the location of the target. Drag the dial to the desired location, then one player may submit the guess.",
@@ -89,7 +93,8 @@
     "card_remaining": "Cards remaining",
     "coop_score": "Cooperative Score",
     "points": "POINTS",
-    "point": "POINT"
+    "point": "POINT",
+    "playing_to": "Playing to {{points}} points"
   },
   "setupgame": {
     "standard_game": "Standard (Teams): 4+ Players",

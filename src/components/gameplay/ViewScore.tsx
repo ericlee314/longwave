@@ -9,6 +9,7 @@ import {
   InitialGameState,
   TeamName,
   TeamReverse,
+  DEFAULT_POINTS_TO_WIN,
 } from "../../state/GameState";
 import { GameModelContext } from "../../state/GameModelContext";
 import { NewRound } from "../../state/NewRound";
@@ -80,6 +81,8 @@ function NextTurnOrEndGame() {
   const { gameState, localPlayer, clueGiver, setGameState } =
     useContext(GameModelContext);
 
+  const pointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
+
   if (!clueGiver) {
     return null;
   }
@@ -97,12 +100,16 @@ function NextTurnOrEndGame() {
           rightTeamName: gameState.rightTeamName,
           leftTeamOrder: gameState.leftTeamOrder,
           rightTeamOrder: gameState.rightTeamOrder,
+          pointsToWin: gameState.pointsToWin,
         });
       }}
     />
   );
 
-  if (gameState.leftScore >= 10 && gameState.leftScore > gameState.rightScore) {
+  if (
+    gameState.leftScore >= pointsToWin &&
+    gameState.leftScore > gameState.rightScore
+  ) {
     return (
       <>
         <div>
@@ -114,7 +121,7 @@ function NextTurnOrEndGame() {
   }
 
   if (
-    gameState.rightScore >= 10 &&
+    gameState.rightScore >= pointsToWin &&
     gameState.rightScore > gameState.leftScore
   ) {
     return (

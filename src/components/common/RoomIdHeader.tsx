@@ -62,6 +62,7 @@ function RoomMenu() {
                 setGameState({
                   ...InitialGameState(i18n.language),
                   creatorId: gameState.creatorId,
+                  pointsToWin: gameState.pointsToWin,
                 })
             : undefined
         }

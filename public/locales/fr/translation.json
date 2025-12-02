@@ -60,7 +60,11 @@
     "right_team_name": "Nom de l'équipe droite",
     "start_game": "Démarrer la partie",
     "creator_is_observer": "Vous avez créé ce salon et suivez la partie comme Maître du jeu. Vous ne rejoindrez pas d'équipe et ne soumettrez pas d'indices/déductions.",
-    "only_creator_can_start": "Seul le maître du jeu peut démarrer la partie."
+    "only_creator_can_start": "Seul le maître du jeu peut démarrer la partie.",
+    "points_to_win_label": "Play to",
+    "points_to_win_helper": "Choose how many points are needed to win the game.",
+    "points_option": "{{points}} points",
+    "points_to_win_display": "Playing to {{points}} points."
   },
   "makeguess": {
     "players_clue": "Indice fourni par {{givername}}",
@@ -82,7 +86,8 @@
     "card_remaining": "Cartes restantes",
     "coop_score": "Score Coopératif",
     "points": "POINTS",
-    "point": "POINT"
+    "point": "POINT",
+    "playing_to": "Playing to {{points}} points"
   },
   "setupgame": {
     "standard_game": "Standard (Équipe) : 4+ Joueurs",

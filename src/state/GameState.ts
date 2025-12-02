@@ -62,6 +62,8 @@ export type TurnSummaryModel = {
   guess: number;
 };
 
+export const DEFAULT_POINTS_TO_WIN = 15;
+
 export interface GameState {
   gameType: GameType;
   roundPhase: RoundPhase;
@@ -89,9 +91,11 @@ export interface GameState {
   // Explicit, stable ordering of players within each team
   leftTeamOrder: string[];
   rightTeamOrder: string[];
+  // Target score required to win a standard teams game
+  pointsToWin: number;
 }
 
-export function InitialGameState(deckLanguage: string): GameState {
+export function InitialGameState(deckLanguage: string = "en"): GameState {
   return {
     gameType: GameType.Teams,
     roundPhase: RoundPhase.SetupGame,
@@ -117,5 +121,6 @@ export function InitialGameState(deckLanguage: string): GameState {
     rightRotationIndex: 0,
     leftTeamOrder: [],
     rightTeamOrder: [],
+    pointsToWin: DEFAULT_POINTS_TO_WIN,
   };
 }

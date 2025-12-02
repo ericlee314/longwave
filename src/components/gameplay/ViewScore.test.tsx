@@ -129,6 +129,7 @@ test("Ends game when one team has 10 points", () => {
   const gameState = {
     ...onePlayerGame,
     leftScore: 10,
+    pointsToWin: 10,
   };
 
   const component = render(
@@ -146,6 +147,7 @@ test("Does not end game when both teams have 10 points", () => {
     ...onePlayerGame,
     leftScore: 10,
     rightScore: 10,
+    pointsToWin: 10,
   };
 
   const component = render(

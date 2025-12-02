@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
-import { GameType, Team, TeamName } from "../../state/GameState";
+import {
+  GameType,
+  Team,
+  TeamName,
+  DEFAULT_POINTS_TO_WIN,
+} from "../../state/GameState";
 import { CenteredRow, CenteredColumn } from "../common/LayoutElements";
 import { GameModelContext } from "../../state/GameModelContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +18,7 @@ import { useTranslation } from "react-i18next";
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
+  const pointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
 
   const style = {
     borderTop: "1px solid black",
@@ -66,24 +72,30 @@ export function Scoreboard() {
   }
 
   return (
-    <CenteredRow style={style}>
-      <TeamColumn
-        team={Team.Left}
-        score={gameState.leftScore}
-        orderedPlayerIds={orderedPlayerIds}
-      />
-      <TeamColumn
-        team={Team.Right}
-        score={gameState.rightScore}
-        orderedPlayerIds={orderedPlayerIds}
-      />
-    </CenteredRow>
+    <CenteredColumn style={{ ...style, gap: 8 }}>
+      <div style={{ fontStyle: "italic", color: "#555" }}>
+        {t("scoreboard.playing_to", { points: pointsToWin }) as string}
+      </div>
+      <CenteredRow style={{ width: "100%", justifyContent: "space-around" }}>
+        <TeamColumn
+          team={Team.Left}
+          score={gameState.leftScore}
+          orderedPlayerIds={orderedPlayerIds}
+        />
+        <TeamColumn
+          team={Team.Right}
+          score={gameState.rightScore}
+          orderedPlayerIds={orderedPlayerIds}
+        />
+      </CenteredRow>
+    </CenteredColumn>
   );
 }
 
 function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string[] }) {
   const { t } = useTranslation();
   const { gameState, setGameState, localPlayer } = useContext(GameModelContext);
+  const pointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
 
   const explicitOrder = props.team === Team.Left ? gameState.leftTeamOrder : gameState.rightTeamOrder;
   const explicitFiltered = (explicitOrder || []).filter((pid) => gameState.players[pid]?.team === props.team);
@@ -97,8 +109,8 @@ function TeamColumn(props: { team: Team; score: number; orderedPlayerIds: string
     if (!isGameMaster || gameState.gameType !== GameType.Teams) return;
     const key = props.team === Team.Left ? "leftScore" : "rightScore";
     const current = (gameState as any)[key] as number;
-    // Clamp between 0 and 10
-    const next = Math.max(0, Math.min(10, current + delta));
+    // Clamp between 0 and the configured target
+    const next = Math.max(0, Math.min(pointsToWin, current + delta));
     if (next !== current) {
       setGameState({ [key]: next } as any);
     }

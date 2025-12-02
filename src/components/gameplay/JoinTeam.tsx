@@ -1,6 +1,11 @@
 import React from "react";
 import { CenteredRow, CenteredColumn } from "../common/LayoutElements";
-import { RoundPhase, Team, TeamName } from "../../state/GameState";
+import {
+  RoundPhase,
+  Team,
+  TeamName,
+  DEFAULT_POINTS_TO_WIN,
+} from "../../state/GameState";
 import { Button } from "../common/Button";
 import { LongwaveAppTitle } from "../common/Title";
 import { useContext } from "react";
@@ -13,6 +18,8 @@ export function JoinTeam() {
   const { t } = useTranslation();
   const cardsTranslation = useTranslation("spectrum-cards");
   const { gameState, localPlayer, setGameState } = useContext(GameModelContext);
+  const pointsToWin = gameState.pointsToWin ?? DEFAULT_POINTS_TO_WIN;
+  const pointsToWinOptions = [10, 15, 20, 25];
 
   // Build team lists: respect explicit order arrays, then append any missing members
   const leftTeamBase = new Set(gameState.leftTeamOrder || []);
@@ -67,6 +74,21 @@ export function JoinTeam() {
 
   const isCreator = localPlayer.id === gameState.creatorId;
 
+  const handlePointsToWinChange = (value: number) => {
+    if (!isCreator) {
+      return;
+    }
+    const sanitized = Math.max(1, Math.min(50, value));
+    setGameState({ pointsToWin: sanitized });
+  };
+
+  const onPointsToWinSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const parsedValue = parseInt(event.target.value, 10);
+    if (!Number.isNaN(parsedValue)) {
+      handlePointsToWinChange(parsedValue);
+    }
+  };
+
   const startGame = () =>
     localPlayer.id === gameState.creatorId &&
     setGameState(
@@ -107,6 +129,34 @@ export function JoinTeam() {
             />
           </div>
         </CenteredRow>
+      )}
+      {isCreator ? (
+        <div style={{ marginBottom: 12 }}>
+          <div>{t("jointeam.points_to_win_label") as string}</div>
+          <select
+            value={pointsToWin}
+            style={{ marginTop: 4 }}
+            onChange={onPointsToWinSelect}
+          >
+            {pointsToWinOptions.map((value) => (
+              <option key={value} value={value}>
+                {t("jointeam.points_option", { points: value }) as string}
+              </option>
+            ))}
+            {!pointsToWinOptions.includes(pointsToWin) && (
+              <option value={pointsToWin}>
+                {t("jointeam.points_option", { points: pointsToWin }) as string}
+              </option>
+            )}
+          </select>
+          <div style={{ color: "#666", marginTop: 4, fontSize: 12 }}>
+            {t("jointeam.points_to_win_helper") as string}
+          </div>
+        </div>
+      ) : (
+        <div style={{ color: "#666", margin: "8px 0" }}>
+          {t("jointeam.points_to_win_display", { points: pointsToWin }) as string}
+        </div>
       )}
       {isCreator && (
         <div style={{ maxWidth: 600, color: "#666", marginBottom: 8 }}>

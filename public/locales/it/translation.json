@@ -64,7 +64,11 @@
     "right_team_name": "Nome squadra destra",
     "start_game": "Avvia gioco",
     "creator_is_observer": "Hai creato questa stanza e seguirai come Game Master. Non ti unirai a una squadra né invierai indizi/ipotesi.",
-    "only_creator_can_start": "Solo il game master può iniziare la partita."
+    "only_creator_can_start": "Solo il game master può iniziare la partita.",
+    "points_to_win_label": "Play to",
+    "points_to_win_helper": "Choose how many points are needed to win the game.",
+    "points_option": "{{points}} points",
+    "points_to_win_display": "Playing to {{points}} points."
   },
   "makeguess": {
     "players_clue": "L'indizio di {{givername}}",
@@ -86,7 +90,8 @@
     "card_remaining": "Carte rimanenti",
     "coop_score": "Punteggio Cooperative",
     "points": "PUNTI",
-    "point": "PUNTO"
+    "point": "PUNTO",
+    "playing_to": "Playing to {{points}} points"
   },
   "setupgame": {
     "standard_game": "Classica (S): 4+ Giocatori",

@@ -90,3 +90,29 @@ test("Shows current team members", () => {
   expect(rightBrain.getByText("Right Team 1")).toBeInTheDocument();
   expect(rightBrain.getByText("Right Team 2")).toBeInTheDocument();
 });
+
+test("Game master can configure the target score", () => {
+  const gameState: GameState = {
+    ...InitialGameState(),
+    creatorId: "player1",
+    players: {
+      player1: {
+        name: "GM",
+        team: Team.Unset,
+      },
+    },
+  };
+
+  const setState = jest.fn();
+  const component = render(
+    <TestContext gameState={gameState} playerId="player1" setState={setState}>
+      <JoinTeam />
+    </TestContext>
+  );
+
+  const select = component.getByDisplayValue("15 points") as HTMLSelectElement;
+  expect(select).toBeInTheDocument();
+
+  fireEvent.change(select, { target: { value: "20" } });
+  expect(setState).toHaveBeenCalledWith({ pointsToWin: 20 });
+});
