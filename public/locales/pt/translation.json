@@ -60,7 +60,9 @@
     "right_team_name": "Nome do time da direita",
     "start_game": "Começar partida",
     "creator_is_observer": "Você criou esta sala e acompanhará como Mestre do jogo. Você não entrará em um time nem enviará dicas/palpites.",
-    "only_creator_can_start": "Apenas o mestre do jogo pode iniciar a partida."
+    "only_creator_can_start": "Apenas o mestre do jogo pode iniciar a partida.",
+    "points_to_win": "Points needed to win",
+    "points_to_win_helper": "Choose a target between {{min}} and {{max}} points. Only the game master can change this."
   },
   "makeguess": {
     "players_clue": "Dica de {{givername}}",
@@ -82,7 +84,8 @@
     "card_remaining": "Cartas restantes",
     "coop_score": "Pontuação cooperativa",
     "points": "PONTOS",
-    "point": "PONTO"
+    "point": "PONTO",
+    "playing_to": "Playing to {{points}} points"
   },
   "setupgame": {
     "standard_game": "Padrão (Times): 4+ Jogadores",
